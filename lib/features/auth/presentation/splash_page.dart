@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pos_billingwala_v2/core/constants/app_colors.dart';
 import 'package:pos_billingwala_v2/core/constants/app_constants.dart';
+import 'package:pos_billingwala_v2/core/widgets/brand_logo.dart';
 import 'package:pos_billingwala_v2/features/auth/domain/auth_controller.dart';
 
 class SplashPage extends ConsumerStatefulWidget {
@@ -81,11 +82,7 @@ class _SplashPageState extends ConsumerState<SplashPage>
                     scale: _logoScale,
                     child: FadeTransition(
                       opacity: _fade,
-                      child: Image.asset(
-                        'assets/images/pos2_billingwala_logo.png',
-                        width: 280,
-                        fit: BoxFit.contain,
-                      ),
+                      child: const BrandLogo(width: 280),
                     ),
                   ),
                   const SizedBox(height: 26),
