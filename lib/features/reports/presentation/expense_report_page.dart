@@ -79,6 +79,7 @@ class ExpenseReportPage extends ConsumerWidget {
       ),
       body: Column(
         children: [
+          Padding(padding: const EdgeInsets.fromLTRB(16, 12, 16, 0), child: Container(padding: const EdgeInsets.all(14), decoration: BoxDecoration(color: AppColors.red.withValues(alpha: .08), borderRadius: BorderRadius.circular(20)), child: const Row(children: [AppModuleIcon(icon: Icons.account_balance_wallet_rounded, color: AppColors.red, size: 48), SizedBox(width: 12), Expanded(child: Text('Understand where your business spends', style: TextStyle(fontWeight: FontWeight.w900, color: AppColors.navy)))]))),
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
             child: SegmentedButton<ReportPeriodKind>(
