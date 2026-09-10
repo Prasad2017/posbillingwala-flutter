@@ -5,8 +5,6 @@ import 'package:pos_billingwala_v2/features/print/domain/bluetooth_printer_hub.d
 import 'package:pos_billingwala_v2/core/widgtes/widgtes.dart';
 import 'package:pos_billingwala_v2/core/constants/app_colors.dart';
 import 'package:pos_billingwala_v2/core/widgets/app_module_icon.dart';
-import 'package:pos_billingwala_v2/core/constants/app_colors.dart';
-import 'package:pos_billingwala_v2/core/widgets/app_module_icon.dart';
 
 /// Paired Bluetooth device list â€” same role as Android [DeviceListActivity].
 class BluetoothDevicePickerPage extends StatefulWidget {
@@ -123,6 +121,7 @@ class _BluetoothDevicePickerPageState extends State<BluetoothDevicePickerPage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+          Container(margin: const EdgeInsets.fromLTRB(16, 10, 16, 0), padding: const EdgeInsets.all(14), decoration: BoxDecoration(color: AppColors.primary.withValues(alpha: .08), borderRadius: BorderRadius.circular(20)), child: const Row(children: [AppModuleIcon(icon: Icons.bluetooth_searching_rounded, color: AppColors.primary, size: 50), SizedBox(width: 12), Expanded(child: Text('Choose your paired printer', style: TextStyle(fontWeight: FontWeight.w900, color: AppColors.navy)))])),
                       const AppModuleIcon(icon: Icons.print_disabled_rounded, color: AppColors.orange, size: 72),
                       const SizedBox(height: 12),
                       const AppModuleIcon(icon: Icons.print_disabled_rounded, color: AppColors.orange, size: 72),
