@@ -868,14 +868,7 @@ class _BillingTile extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: AppColors.primaryLight,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Icon(icon, color: AppColors.primary),
-          ),
+          AppModuleIcon(icon: icon, color: _colorForIcon(icon), size: 52),
           const Spacer(),
           Text(
             title,
@@ -914,10 +907,7 @@ class _ActionCard extends StatelessWidget {
       padding: EdgeInsets.zero,
       onTap: onTap,
       child: ListTile(
-        leading: CircleAvatar(
-          backgroundColor: AppColors.primaryLight,
-          child: Icon(icon, color: AppColors.primary, size: 20),
-        ),
+        leading: AppModuleIcon(icon: icon, color: _colorForIcon(icon), size: 46),
         title: Text(
           title,
           style: const TextStyle(fontWeight: FontWeight.w700),
