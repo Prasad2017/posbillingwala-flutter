@@ -6,6 +6,7 @@ import 'package:pos_billingwala_v2/core/database/database_provider.dart';
 import 'package:pos_billingwala_v2/features/auth/domain/auth_controller.dart';
 import 'package:pos_billingwala_v2/features/masters/domain/masters_providers.dart';
 import 'package:pos_billingwala_v2/core/widgtes/widgtes.dart';
+import 'package:pos_billingwala_v2/core/widgets/app_module_icon.dart';
 
 class SubcategoriesPage extends ConsumerStatefulWidget {
   const SubcategoriesPage({super.key});
@@ -182,8 +183,12 @@ class _SubcategoriesPageState extends ConsumerState<SubcategoriesPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text('No subcategories yet'),
-                    const SizedBox(height: 12),
+                    const AppModuleIcon(icon: Icons.account_tree_rounded, color: AppColors.purple, size: 72),
+                    const SizedBox(height: 14),
+                    const Text('No subcategories yet', style: TextStyle(fontWeight: FontWeight.w900, fontSize: 17)),
+                    const SizedBox(height: 6),
+                    Text('Organize products with smart groups.', style: TextStyle(color: AppColors.navy.withValues(alpha: .55))),
+                    const SizedBox(height: 16),
                     AppButton(
             label: 'Sync from cloud',
             icon: Icons.cloud_download_rounded,
@@ -204,24 +209,24 @@ class _SubcategoriesPageState extends ConsumerState<SubcategoriesPage> {
               final catName = categories[s.categoryId] ??
                   'Category ${s.categoryId ?? '-'}';
               final pending = s.subcategorySyncStatus == '0';
+              final color = pending ? AppColors.orange : (index.isEven ? AppColors.purple : AppColors.teal);
               return AppCard(
-            padding: EdgeInsets.zero,
-            child: ListTile(
-                  leading: CircleAvatar(
-                    backgroundColor: AppColors.primaryLight,
-                    child: Icon(
-                      pending
-                          ? Icons.cloud_off_outlined
-                          : Icons.account_tree_outlined,
-                      color: AppColors.primary,
-                    ),
+                accentColor: color,
+                padding: EdgeInsets.zero,
+                child: ListTile(
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                  leading: AppModuleIcon(
+                    icon: pending ? Icons.cloud_off_outlined : Icons.account_tree_rounded,
+                    color: color,
+                    size: 50,
                   ),
                   title: Text(
                     s.subcategoryName,
-                    style: const TextStyle(fontWeight: FontWeight.w700),
+                    style: const TextStyle(fontWeight: FontWeight.w900),
                   ),
                   subtitle: Text(
-                    pending ? '$catName Â· Pending sync' : catName,
+                    pending ? '$catName • Pending sync' : catName,
+                    style: TextStyle(color: pending ? AppColors.orange : AppColors.navy.withValues(alpha: .58)),
                   ),
                   trailing: IconButton(
                     tooltip: 'Delete',
