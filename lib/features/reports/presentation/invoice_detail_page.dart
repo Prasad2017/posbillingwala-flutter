@@ -10,6 +10,7 @@ import 'package:pos_billingwala_v2/features/sync/data/invoice_sync_api.dart';
 import 'package:pos_billingwala_v2/features/auth/domain/auth_controller.dart';
 import 'package:pos_billingwala_v2/features/sync/domain/sync_providers.dart';
 import 'package:pos_billingwala_v2/core/widgtes/widgtes.dart';
+import 'package:pos_billingwala_v2/core/widgets/app_module_icon.dart';
 
 class InvoiceDetailPage extends ConsumerWidget {
   const InvoiceDetailPage({super.key, required this.invoiceId});
@@ -19,7 +20,7 @@ class InvoiceDetailPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final detailAsync = ref.watch(invoiceDetailProvider(invoiceId));
-    final currency = NumberFormat.currency(locale: 'en_IN', symbol: 'â‚¹');
+    final currency = NumberFormat.currency(locale: 'en_IN', symbol: '₹');
     final timeFormat = DateFormat('dd MMM yyyy, hh:mm a');
 
     return Scaffold(
@@ -88,10 +89,13 @@ class InvoiceDetailPage extends ConsumerWidget {
             padding: const EdgeInsets.all(16),
             children: [
               AppCard(
+            accentColor: AppColors.primary,
             padding: const EdgeInsets.all(16),
             child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      const AppModuleIcon(icon: Icons.receipt_long_rounded, color: AppColors.primary, size: 56),
+                      const SizedBox(height: 10),
                       Text(
                         invoice.invoiceNumber,
                         style: Theme.of(context).textTheme.titleLarge?.copyWith(
