@@ -135,6 +135,7 @@ class MastersPage extends ConsumerWidget {
       ),
       body: Column(
         children: [
+          Container(margin: const EdgeInsets.fromLTRB(16, 10, 16, 0), padding: const EdgeInsets.all(14), decoration: BoxDecoration(color: AppColors.primary.withValues(alpha: .08), borderRadius: BorderRadius.circular(20)), child: const Row(children: [AppModuleIcon(icon: Icons.category_rounded, color: AppColors.primary, size: 48), SizedBox(width: 12), Expanded(child: Text('Products, categories & business catalog', style: TextStyle(fontWeight: FontWeight.w900, color: AppColors.navy)))])),
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
             child: countsAsync.when(
