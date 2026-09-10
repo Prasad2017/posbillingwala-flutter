@@ -118,7 +118,7 @@ class _TakeawayPageState extends ConsumerState<TakeawayPage> {
   @override
   Widget build(BuildContext context) {
     final todayInvoices = ref.watch(todayInvoicesProvider);
-    final currency = NumberFormat.currency(locale: 'en_IN', symbol: 'â‚¹');
+    final currency = NumberFormat.currency(locale: 'en_IN', symbol: '₹');
     final timeFmt = DateFormat('hh:mm a');
 
     return Scaffold(
@@ -133,7 +133,7 @@ class _TakeawayPageState extends ConsumerState<TakeawayPage> {
               style: TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w400,
-                color: Colors.white70,
+                color: AppColors.navy.withValues(alpha: .55),
               ),
             ),
           ],
@@ -190,40 +190,36 @@ class _TakeawayPageState extends ConsumerState<TakeawayPage> {
 
           return Column(
             children: [
-              Container(
-                color: Colors.white,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                child: const Row(
-                  children: [
-                    SizedBox(
-                      width: 40,
-                      child: Text(
-                        '#',
-                        style: TextStyle(fontWeight: FontWeight.w700),
-                      ),
-                    ),
-                    Expanded(
-                      child: Text(
-                        'Take Away No',
-                        style: TextStyle(fontWeight: FontWeight.w700),
-                      ),
-                    ),
-                    Text(
-                      'Bill Amount',
-                      style: TextStyle(fontWeight: FontWeight.w700),
-                    ),
-                  ],
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 8, 16, 10),
+                child: Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    gradient: const LinearGradient(colors: [AppColors.orange, AppColors.orangeDark]),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: const Row(
+                    children: [
+                      Icon(Icons.takeout_dining_rounded, color: Colors.white),
+                      SizedBox(width: 12),
+                      Expanded(child: Text('Today\'s Parcels', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 17))),
+                      Text('Tap parcel to view', style: TextStyle(color: Colors.white70, fontSize: 12)),
+                    ],
+                  ),
                 ),
               ),
-              const Divider(height: 1),
               Expanded(
                 child: ListView.separated(
                   itemCount: parcels.length,
-                  separatorBuilder: (_, _) => const Divider(height: 1),
+                  separatorBuilder: (_, _) => const SizedBox(height: 10),
                   itemBuilder: (context, index) {
                     final invoice = parcels[index];
-                    return ListTile(
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: AppCard(
+                        accentColor: index.isEven ? AppColors.orange : AppColors.primary,
+                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                        child: ListTile(
                       leading: CircleAvatar(
                         backgroundColor: AppColors.primaryLight,
                         child: Text(
@@ -266,6 +262,8 @@ class _TakeawayPageState extends ConsumerState<TakeawayPage> {
                       ),
                       onTap: () => _openInvoice(invoice.invoiceId),
                       onLongPress: () => _showParcelMenu(invoice.invoiceId),
+                        ),
+                      ),
                     );
                   },
                 ),
