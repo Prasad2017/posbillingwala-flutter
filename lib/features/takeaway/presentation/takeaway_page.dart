@@ -9,6 +9,8 @@ import 'package:pos_billingwala_v2/features/print/domain/print_providers.dart';
 import 'package:pos_billingwala_v2/features/reports/domain/reports_providers.dart';
 import 'package:pos_billingwala_v2/features/reports/presentation/invoice_detail_page.dart';
 import 'package:pos_billingwala_v2/core/widgtes/widgtes.dart';
+import 'package:pos_billingwala_v2/core/widgets/app_module_icon.dart';
+import 'package:pos_billingwala_v2/core/widgets/app_module_icon.dart';
 
 /// Android-style Take Away parcel counter: list + New Parcel.
 class TakeawayPage extends ConsumerStatefulWidget {
@@ -158,6 +160,8 @@ class _TakeawayPageState extends ConsumerState<TakeawayPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    const AppModuleIcon(icon: Icons.takeout_dining_rounded, color: AppColors.orange, size: 76),
+                    const SizedBox(height: 14),
                     Icon(
                       Icons.takeout_dining_rounded,
                       size: 72,
