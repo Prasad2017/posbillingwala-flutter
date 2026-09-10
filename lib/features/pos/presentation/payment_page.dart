@@ -14,6 +14,7 @@ import 'package:pos_billingwala_v2/features/print/domain/print_providers.dart';
 import 'package:pos_billingwala_v2/features/print/domain/printer_settings.dart';
 import 'package:pos_billingwala_v2/features/sync/domain/sync_providers.dart';
 import 'package:pos_billingwala_v2/core/widgtes/widgtes.dart';
+import 'package:pos_billingwala_v2/core/widgets/app_module_icon.dart';
 
 class PaymentPage extends ConsumerStatefulWidget {
   const PaymentPage({super.key});
@@ -34,7 +35,7 @@ class _PaymentPageState extends ConsumerState<PaymentPage> {
   @override
   void initState() {
     super.initState();
-    _currency = NumberFormat.currency(locale: 'en_IN', symbol: 'â‚¹');
+    _currency = NumberFormat.currency(locale: 'en_IN', symbol: '₹');
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final session = ref.read(billingSessionProvider);
       _customerNameController.text = session.customerName ?? '';
@@ -242,13 +243,15 @@ class _PaymentPageState extends ConsumerState<PaymentPage> {
                         ),
                       if (showCustomer) const SizedBox(height: 12),
                       AppCard(
+                        accentColor: AppColors.primary,
                         padding: EdgeInsets.zero,
                         child: Column(
                           children: [
                             const ListTile(
+                              leading: AppModuleIcon(icon: Icons.shopping_bag_rounded, color: AppColors.primary, size: 44),
                               title: Text(
                                 'Items',
-                                style: TextStyle(fontWeight: FontWeight.w800),
+                                style: TextStyle(fontWeight: FontWeight.w900),
                               ),
                             ),
                             const Divider(height: 1),
@@ -285,7 +288,8 @@ class _PaymentPageState extends ConsumerState<PaymentPage> {
                       ),
                       const SizedBox(height: 12),
                       AppCard(
-                          child: Column(
+                        accentColor: AppColors.orange,
+                        child: Column(
                             children: [
                               _PayRow(
                                 'Sub Total',
@@ -462,26 +466,40 @@ class _PaymentPageState extends ConsumerState<PaymentPage> {
                         ),
                       ),
                       const SizedBox(height: 10),
-                      Wrap(
-                        spacing: 8,
-                        runSpacing: 8,
+                      GridView.count(
+                        crossAxisCount: 2,
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        mainAxisSpacing: 10,
+                        crossAxisSpacing: 10,
+                        childAspectRatio: 2.65,
                         children: PaymentMode.values.map((mode) {
                           final selected = checkout.mode == mode;
                           final total = _payable(summary, checkout);
-                          return ChoiceChip(
-                            label: Text(mode.label),
-                            selected: selected,
-                            onSelected: checkout.busy
-                                ? null
-                                : (_) {
-                                    ref
-                                        .read(
-                                          paymentCheckoutControllerProvider
-                                              .notifier,
-                                        )
-                                        .selectMode(mode, total);
-                                    _syncControllers();
-                                  },
+                          final color = _paymentColor(mode);
+                          return InkWell(
+                            borderRadius: BorderRadius.circular(18),
+                            onTap: checkout.busy ? null : () {
+                              ref.read(paymentCheckoutControllerProvider.notifier).selectMode(mode, total);
+                              _syncControllers();
+                            },
+                            child: AnimatedContainer(
+                              duration: const Duration(milliseconds: 220),
+                              padding: const EdgeInsets.symmetric(horizontal: 12),
+                              decoration: BoxDecoration(
+                                color: selected ? color : color.withValues(alpha: .08),
+                                borderRadius: BorderRadius.circular(18),
+                                border: Border.all(color: color.withValues(alpha: selected ? .8 : .16), width: selected ? 2 : 1),
+                              ),
+                              child: Row(
+                                children: [
+                                  Icon(_paymentIcon(mode), color: selected ? Colors.white : color),
+                                  const SizedBox(width: 9),
+                                  Expanded(child: Text(mode.label, maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontWeight: FontWeight.w900, color: selected ? Colors.white : AppColors.navy))),
+                                  if (selected) const Icon(Icons.check_circle_rounded, color: Colors.white, size: 18),
+                                ],
+                              ),
+                            ),
                           );
                         }).toList(),
                       ),
@@ -542,8 +560,9 @@ class _PaymentPageState extends ConsumerState<PaymentPage> {
                   ),
                 ),
                 Material(
-                  elevation: 8,
+                  elevation: 10,
                   color: Colors.white,
+                  borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
                     child: Row(
@@ -559,7 +578,7 @@ class _PaymentPageState extends ConsumerState<PaymentPage> {
                               Text(
                                 _currency.format(_payable(summary, checkout)),
                                 style: theme.textTheme.titleLarge?.copyWith(
-                                  fontWeight: FontWeight.w800,
+                                  fontWeight: FontWeight.w900,
                                   color: AppColors.primary,
                                 ),
                               ),
@@ -583,6 +602,24 @@ class _PaymentPageState extends ConsumerState<PaymentPage> {
         ),
       ),
     );
+  }
+}
+
+Color _paymentColor(PaymentMode mode) {
+  switch (mode) {
+    case PaymentMode.cash: return AppColors.green;
+    case PaymentMode.upi: return AppColors.primary;
+    case PaymentMode.card: return AppColors.purple;
+    case PaymentMode.cashPlusUpi: return AppColors.orange;
+  }
+}
+
+IconData _paymentIcon(PaymentMode mode) {
+  switch (mode) {
+    case PaymentMode.cash: return Icons.payments_rounded;
+    case PaymentMode.upi: return Icons.qr_code_2_rounded;
+    case PaymentMode.card: return Icons.credit_card_rounded;
+    case PaymentMode.cashPlusUpi: return Icons.account_balance_wallet_rounded;
   }
 }
 
