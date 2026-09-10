@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:pos_billingwala_v2/core/widgtes/widgtes.dart';
+import 'package:pos_billingwala_v2/core/constants/app_colors.dart';
+import 'package:pos_billingwala_v2/core/widgets/app_module_icon.dart';
+import 'package:pos_billingwala_v2/core/widgets/app_module_icon.dart';
 import 'package:pos_billingwala_v2/features/auth/domain/auth_controller.dart';
 import 'package:pos_billingwala_v2/features/company/data/company_api.dart';
 import 'package:pos_billingwala_v2/features/company/data/company_dtos.dart';
@@ -163,7 +166,12 @@ class _BusinessHoursPageState extends ConsumerState<BusinessHoursPage> {
         children: [
           AppCard(
             padding: EdgeInsets.zero,
-            child: Column(
+            child: Column(children: [
+            const AppModuleIcon(icon: Icons.schedule_rounded, color: AppColors.orange, size: 70),
+            const SizedBox(height: 12),
+            const Text('Business schedule', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900, color: AppColors.navy)),
+            const SizedBox(height: 18),
+            AppCard(accentColor: AppColors.orange, child: Column(children: [
               children: [
                 ListTile(
                   leading: const Icon(Icons.wb_sunny_outlined),
