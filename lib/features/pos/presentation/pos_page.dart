@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:pos_billingwala_v2/core/constants/app_colors.dart';
+import 'package:pos_billingwala_v2/core/widgets/app_module_icon.dart';
 import 'package:pos_billingwala_v2/core/database/app_database.dart';
 import 'package:pos_billingwala_v2/features/masters/domain/masters_providers.dart';
 import 'package:pos_billingwala_v2/features/pos/domain/billing_session.dart';
@@ -625,23 +626,17 @@ class _ProductCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final gstPercent = product.productCgst + product.productSgst;
     return AppCard(
+      accentColor: product.openPrice == '1' ? AppColors.orange : AppColors.primary,
       onTap: () => addProductWithPortionPicker(context, ref, product),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              CircleAvatar(
-                backgroundColor: AppColors.primaryLight,
-                child: Text(
-                  product.productName.isNotEmpty
-                      ? product.productName[0].toUpperCase()
-                      : '?',
-                  style: const TextStyle(
-                    color: AppColors.primary,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+              AppModuleIcon(
+                icon: Icons.shopping_bag_rounded,
+                color: product.openPrice == '1' ? AppColors.orange : AppColors.primary,
+                size: 50,
               ),
               const Spacer(),
               if (product.openPrice == '1')
@@ -725,15 +720,10 @@ class _ProductRowTile extends ConsumerWidget {
             padding: EdgeInsets.zero,
             child: ListTile(
         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-        leading: CircleAvatar(
-          backgroundColor: AppColors.primaryLight,
-          child: Text(
-            product.productName.isNotEmpty ? product.productName[0].toUpperCase() : '?',
-            style: const TextStyle(
-              color: AppColors.primary,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
+        leading: const AppModuleIcon(
+          icon: Icons.shopping_bag_rounded,
+          color: AppColors.primary,
+          size: 46,
         ),
         title: Text(product.productName),
         subtitle: Text(
