@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pos_billingwala_v2/core/constants/app_colors.dart';
 import 'package:pos_billingwala_v2/core/constants/app_constants.dart';
+import 'package:pos_billingwala_v2/core/widgets/app_module_icon.dart';
 import 'package:pos_billingwala_v2/core/widgtes/widgtes.dart';
 import 'package:pos_billingwala_v2/features/auth/domain/auth_controller.dart';
 import 'package:pos_billingwala_v2/features/reports/presentation/report_pin_gate.dart';
@@ -65,7 +66,7 @@ class SettingsHubPage extends ConsumerWidget {
                     current == option.$1
                         ? Icons.radio_button_checked
                         : Icons.radio_button_off,
-                    color: AppColors.primary,
+                    color: AppColors.navy,
                   ),
                   const SizedBox(width: 12),
                   Text(option.$2),
@@ -88,7 +89,7 @@ class SettingsHubPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       backgroundColor: const Color(0xFFF7F9FC),
-      appBar: AppBar(title: const Text('User Setting')),
+      appBar: AppBar(title: const Text('Settings')),
       body: ListView(
         padding: const EdgeInsets.fromLTRB(16, 12, 16, 32),
         children: [
@@ -266,29 +267,25 @@ class SettingsHubPage extends ConsumerWidget {
 
 class _Section extends StatelessWidget {
   const _Section({required this.title, required this.children});
-
   final String title;
   final List<Widget> children;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.only(bottom: 18),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.fromLTRB(4, 8, 4, 8),
-            child: Text(
-              title,
-              style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                    fontWeight: FontWeight.w800,
-                    color: AppColors.primary,
-                  ),
-            ),
+            padding: const EdgeInsets.fromLTRB(4, 6, 4, 10),
+            child: Text(title, style: Theme.of(context).textTheme.titleMedium?.copyWith(
+              fontWeight: FontWeight.w900, color: AppColors.navy,
+            )),
           ),
           AppCard(
             padding: EdgeInsets.zero,
+            accentColor: AppColors.primary,
             child: Column(children: children),
           ),
         ],
@@ -298,34 +295,36 @@ class _Section extends StatelessWidget {
 }
 
 class _RowTile extends StatelessWidget {
-  const _RowTile({
-    required this.icon,
-    required this.title,
-    required this.subtitle,
-    required this.onTap,
-  });
-
+  const _RowTile({required this.icon, required this.title, required this.subtitle, required this.onTap});
   final IconData icon;
   final String title;
   final String subtitle;
   final VoidCallback onTap;
 
+  Color get _color {
+    const colors = [
+      AppColors.primary, AppColors.orange, AppColors.green,
+      AppColors.purple, AppColors.red, AppColors.teal,
+    ];
+    return colors[icon.codePoint % colors.length];
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      minVerticalPadding: 12,
       onTap: onTap,
-      leading: Container(
-        width: 44,
-        height: 44,
-        decoration: BoxDecoration(
-          color: AppColors.primaryLight,
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Icon(icon, color: AppColors.primary),
+      leading: AppModuleIcon(icon: icon, color: _color, size: 48),
+      title: Text(title, style: const TextStyle(fontWeight: FontWeight.w800, color: AppColors.navy)),
+      subtitle: Padding(
+        padding: const EdgeInsets.only(top: 3),
+        child: Text(subtitle, style: TextStyle(color: AppColors.navy.withValues(alpha: .55))),
       ),
-      title: Text(title, style: const TextStyle(fontWeight: FontWeight.w700)),
-      subtitle: Text(subtitle),
-      trailing: const Icon(Icons.chevron_right_rounded),
+      trailing: Container(
+        width: 34, height: 34,
+        decoration: BoxDecoration(color: _color.withValues(alpha: .09), shape: BoxShape.circle),
+        child: Icon(Icons.arrow_forward_ios_rounded, size: 14, color: _color),
+      ),
     );
   }
 }
