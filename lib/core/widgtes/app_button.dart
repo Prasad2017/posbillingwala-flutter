@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:pos_billingwala_v2/core/constants/app_colors.dart';
 import 'package:pos_billingwala_v2/core/widgtes/three_dots_loader.dart';
 
@@ -22,8 +22,7 @@ class AppButton extends StatelessWidget {
   final bool isLoading;
   final bool expanded;
 
-  Color get _loaderColor =>
-      variant == AppButtonVariant.outlined ? AppColors.primary : Colors.white;
+  Color get _loaderColor => variant == AppButtonVariant.outlined ? AppColors.primary : Colors.white;
 
   @override
   Widget build(BuildContext context) {
@@ -37,36 +36,33 @@ class AppButton extends StatelessWidget {
                 Icon(icon, size: 20),
                 const SizedBox(width: 8),
               ],
-              Flexible(
-                child: Text(
-                  label,
-                  textAlign: TextAlign.center,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
+              Flexible(child: Text(label, textAlign: TextAlign.center, overflow: TextOverflow.ellipsis)),
             ],
           );
 
     final onTap = isLoading ? null : onPressed;
-
     final button = switch (variant) {
       AppButtonVariant.primary => FilledButton(
           onPressed: onTap,
+          style: FilledButton.styleFrom(
+            backgroundColor: AppColors.primary,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          ),
           child: child,
         ),
       AppButtonVariant.success => FilledButton(
           onPressed: onTap,
           style: FilledButton.styleFrom(
-            backgroundColor: AppColors.success,
-            foregroundColor: Colors.white,
+            backgroundColor: AppColors.green,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           ),
           child: child,
         ),
       AppButtonVariant.danger => FilledButton(
           onPressed: onTap,
           style: FilledButton.styleFrom(
-            backgroundColor: AppColors.danger,
-            foregroundColor: Colors.white,
+            backgroundColor: AppColors.red,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           ),
           child: child,
         ),
@@ -74,17 +70,16 @@ class AppButton extends StatelessWidget {
           onPressed: onTap,
           style: OutlinedButton.styleFrom(
             foregroundColor: AppColors.primary,
-            side: const BorderSide(color: AppColors.primary),
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
+            side: const BorderSide(color: Color(0xFFBFD5F5)),
           ),
           child: child,
         ),
     };
 
-    if (!expanded) return button;
-    return SizedBox(width: double.infinity, child: button);
+    return AnimatedScale(
+      scale: onTap == null ? .98 : 1,
+      duration: const Duration(milliseconds: 160),
+      child: expanded ? SizedBox(width: double.infinity, child: button) : button,
+    );
   }
 }
