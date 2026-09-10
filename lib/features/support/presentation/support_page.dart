@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pos_billingwala_v2/core/constants/app_colors.dart';
 import 'package:pos_billingwala_v2/core/widgtes/widgtes.dart';
+import 'package:pos_billingwala_v2/core/widgets/app_module_icon.dart';
 import 'package:pos_billingwala_v2/features/auth/domain/auth_controller.dart';
 import 'package:pos_billingwala_v2/features/support/data/support_api.dart';
 import 'package:pos_billingwala_v2/features/support/data/support_dtos.dart';
@@ -12,6 +13,14 @@ class SupportPage extends ConsumerStatefulWidget {
 
   @override
   ConsumerState<SupportPage> createState() => _SupportPageState();
+}
+
+Color _ticketColor(String status) {
+  final value = status.toLowerCase();
+  if (value.contains('closed') || value.contains('resolved')) return AppColors.green;
+  if (value.contains('pending')) return AppColors.orange;
+  if (value.contains('urgent')) return AppColors.red;
+  return AppColors.primary;
 }
 
 class _SupportPageState extends ConsumerState<SupportPage> {
@@ -164,29 +173,61 @@ class _SupportPageState extends ConsumerState<SupportPage> {
       ),
       body: _error != null
           ? Center(child: Text(_error!))
-          : _tickets.isEmpty && !_loading
-              ? const Center(child: Text('No support tickets yet'))
-              : ListView.separated(
-                  padding: const EdgeInsets.all(16),
-                  itemCount: _tickets.length,
-                  separatorBuilder: (_, _) => const SizedBox(height: 8),
-                  itemBuilder: (context, index) {
-                    final t = _tickets[index];
+          : ListView.separated(
+              padding: const EdgeInsets.all(16),
+              itemCount: _tickets.length + 1,
+              separatorBuilder: (_, _) => const SizedBox(height: 10),
+              itemBuilder: (context, index) {
+                if (index == 0) {
+                  return Container(
+                    padding: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      gradient: const LinearGradient(colors: [AppColors.purple, AppColors.primary]),
+                      borderRadius: BorderRadius.circular(24),
+                    ),
+                    child: Row(
+                      children: [
+                        const AppModuleIcon(icon: Icons.support_agent_rounded, color: Colors.white, size: 58),
+                        const SizedBox(width: 16),
+                        Expanded(child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text('How can we help?', style: TextStyle(color: Colors.white, fontSize: 19, fontWeight: FontWeight.w900)),
+                            const SizedBox(height: 5),
+                            Text(_tickets.isEmpty ? 'Create a ticket and our team will assist you.' : _tickets.length.toString() + ' support tickets', style: const TextStyle(color: Colors.white70)),
+                          ],
+                        )),
+                      ],
+                    ),
+                  );
+                }
+                if (_tickets.isEmpty) {
+                  return Padding(
+                    padding: const EdgeInsets.only(top: 56),
+                    child: Column(children: [
+                      const AppModuleIcon(icon: Icons.mark_email_read_rounded, color: AppColors.green, size: 72),
+                      const SizedBox(height: 14),
+                      const Text('No support tickets yet', style: TextStyle(fontWeight: FontWeight.w900, fontSize: 17)),
+                      const SizedBox(height: 5),
+                      Text('Tap New ticket whenever you need help.', style: TextStyle(color: AppColors.navy.withValues(alpha: .55))),
+                    ]),
+                  );
+                }
+                final t = _tickets[index - 1];
                     return AppCard(
-            padding: EdgeInsets.zero,
-            child: ListTile(
+                      accentColor: _ticketColor(t.status),
+                      padding: EdgeInsets.zero,
+                      child: ListTile(
+                        contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
                         onTap: () {
                           final id = t.id;
                           if (id == null || id.isEmpty) return;
                           context.push('/support/$id');
                         },
-                        leading: CircleAvatar(
-                          backgroundColor:
-                              AppColors.primary.withValues(alpha: 0.12),
-                          child: const Icon(
-                            Icons.support_agent_rounded,
-                            color: AppColors.primary,
-                          ),
+                        leading: AppModuleIcon(
+                          icon: Icons.support_agent_rounded,
+                          color: _ticketColor(t.status),
+                          size: 50,
                         ),
                         title: Text(
                           t.subject.isEmpty ? 'Ticket' : t.subject,
