@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -243,7 +243,7 @@ class _MessPaymentsPageState extends ConsumerState<MessPaymentsPage> {
           content: Text(
             success
                 ? 'Payment saved'
-                : 'Saved offline â€” will sync when online',
+                : 'Saved offline — will sync when online',
           ),
         ),
       );
