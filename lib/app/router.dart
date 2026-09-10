@@ -82,6 +82,7 @@ final routerProvider = Provider<GoRouter>((ref) {
           return '/login';
         case AuthStatus.needsMpin:
           if (isMpin) return null;
+          // Keep registration/login reachable for licence recovery or account changes.
           if (isLogin || isRegister) return null;
           return '/mpin';
         case AuthStatus.authenticated:
