@@ -140,6 +140,7 @@ class _MessMealTokensTodayPageState
           return Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+          Container(margin: const EdgeInsets.fromLTRB(16, 10, 16, 8), padding: const EdgeInsets.all(14), decoration: BoxDecoration(color: AppColors.orange.withValues(alpha: .10), borderRadius: BorderRadius.circular(20)), child: const Row(children: [AppModuleIcon(icon: Icons.confirmation_number_rounded, color: AppColors.orange, size: 48), SizedBox(width: 12), Expanded(child: Text('Today’s meal tokens at a glance', style: TextStyle(fontWeight: FontWeight.w900, color: AppColors.navy)))])),
               if (data.sessionCounts.isNotEmpty)
                 Padding(
                   padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
