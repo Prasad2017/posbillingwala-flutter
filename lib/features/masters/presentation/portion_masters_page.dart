@@ -96,7 +96,9 @@ class _PortionMastersPageState extends ConsumerState<PortionMastersPage> {
         icon: const Icon(Icons.add),
         label: const Text('Add'),
       ),
-      body: list.when(
+      body: Column(children: [
+        Container(margin: const EdgeInsets.fromLTRB(16, 10, 16, 0), padding: const EdgeInsets.all(14), decoration: BoxDecoration(color: AppColors.purple.withValues(alpha: .08), borderRadius: BorderRadius.circular(20)), child: const Row(children: [AppModuleIcon(icon: Icons.straighten_rounded, color: AppColors.purple, size: 48), SizedBox(width: 12), Text('Serving sizes & portions', style: TextStyle(fontWeight: FontWeight.w900, color: AppColors.navy))])),
+        Expanded(child: list.when(
         data: (rows) {
           if (rows.isEmpty) {
             return Center(
@@ -160,7 +162,8 @@ class _PortionMastersPageState extends ConsumerState<PortionMastersPage> {
         },
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (e, _) => Center(child: Text('$e')),
-      ),
+      )),
+      ]),
     );
   }
 }
