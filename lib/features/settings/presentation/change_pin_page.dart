@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pos_billingwala_v2/core/widgtes/widgtes.dart';
 import 'package:pos_billingwala_v2/features/auth/domain/auth_controller.dart';
+import 'package:pos_billingwala_v2/core/constants/app_colors.dart';
+import 'package:pos_billingwala_v2/core/widgets/app_module_icon.dart';
 
 class ChangePinPage extends ConsumerStatefulWidget {
   const ChangePinPage({super.key});
@@ -82,7 +84,16 @@ class _ChangePinPageState extends ConsumerState<ChangePinPage> {
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
+          const Padding(
+            padding: EdgeInsets.only(bottom: 18),
+            child: Column(children: [
+              AppModuleIcon(icon: Icons.lock_reset_rounded, color: AppColors.primary, size: 72),
+              SizedBox(height: 8),
+              Text('Secure your PB-PIN', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900)),
+            ]),
+          ),
           AppCard(
+            accentColor: AppColors.primary,
             child: Column(
               children: [
                 if (hasPin) ...[
