@@ -108,7 +108,8 @@ class _InventoryPageState extends ConsumerState<InventoryPage>
         },
         icon: const Icon(Icons.add_rounded),
         label: Text(_tabs.index == 0 ? 'Add stock' : 'Add expense'),
-      ),
+      )),
+      ]),
     );
   }
 
