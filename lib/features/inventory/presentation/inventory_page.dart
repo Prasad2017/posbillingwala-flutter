@@ -9,6 +9,7 @@ import 'package:pos_billingwala_v2/core/database/app_database.dart';
 import 'package:pos_billingwala_v2/features/inventory/domain/inventory_providers.dart';
 import 'package:pos_billingwala_v2/features/masters/domain/masters_providers.dart';
 import 'package:pos_billingwala_v2/core/widgtes/widgtes.dart';
+import 'package:pos_billingwala_v2/core/widgets/app_module_icon.dart';
 
 class InventoryPage extends ConsumerStatefulWidget {
   const InventoryPage({super.key, this.initialTab = 0});
@@ -87,13 +88,16 @@ class _InventoryPageState extends ConsumerState<InventoryPage>
           ),
         ],
       ),
-      body: TabBarView(
+      body: Column(children: [
+        Container(margin: const EdgeInsets.fromLTRB(16, 12, 16, 0), padding: const EdgeInsets.all(14), decoration: BoxDecoration(gradient: const LinearGradient(colors: [AppColors.primary, AppColors.primaryDark]), borderRadius: BorderRadius.circular(20)), child: const Row(children: [AppModuleIcon(icon: Icons.inventory_2_rounded, color: Colors.white, size: 48), SizedBox(width: 12), Expanded(child: Text('Track stock and expenses', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w900)))])),
+        Expanded(child: TabBarView(
         controller: _tabs,
         children: const [
           _StockTab(),
           _ExpensesTab(),
         ],
-      ),
+      )),
+      ]),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           if (_tabs.index == 0) {
