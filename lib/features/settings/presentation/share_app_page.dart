@@ -4,7 +4,6 @@ import 'package:pos_billingwala_v2/core/constants/app_colors.dart';
 import 'package:pos_billingwala_v2/core/constants/app_constants.dart';
 import 'package:pos_billingwala_v2/core/widgtes/widgtes.dart';
 import 'package:pos_billingwala_v2/core/widgets/app_module_icon.dart';
-import 'package:pos_billingwala_v2/core/widgets/app_module_icon.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -49,6 +48,11 @@ class ShareAppPage extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
+          AppCard(accentColor: AppColors.primary, child: Column(children: [
+          const AppModuleIcon(icon: Icons.share_rounded, color: AppColors.primary, size: 72),
+          const SizedBox(height: 12),
+          const Text('Share smarter billing', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900, color: AppColors.navy)),
+          const SizedBox(height: 8),
               QrImageView(
                 data: _playStoreLink,
                 size: 220,
@@ -101,6 +105,7 @@ class ShareAppPage extends StatelessWidget {
                       ),
                 ),
                 const SizedBox(height: 24),
+          ])),
                 Wrap(
                   spacing: 8,
                   runSpacing: 8,
