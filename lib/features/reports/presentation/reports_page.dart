@@ -7,6 +7,8 @@ import 'package:pos_billingwala_v2/core/database/app_database.dart';
 import 'package:pos_billingwala_v2/features/reports/domain/report_export.dart';
 import 'package:pos_billingwala_v2/features/reports/domain/reports_providers.dart';
 import 'package:pos_billingwala_v2/core/widgtes/widgtes.dart';
+import 'package:pos_billingwala_v2/core/widgets/app_module_icon.dart';
+import 'package:pos_billingwala_v2/core/widgets/app_module_icon.dart';
 
 class ReportsPage extends ConsumerWidget {
   const ReportsPage({super.key});
@@ -55,6 +57,7 @@ class ReportsPage extends ConsumerWidget {
       ),
       body: Column(
         children: [
+          Padding(padding: const EdgeInsets.fromLTRB(16, 12, 16, 0), child: Container(padding: const EdgeInsets.all(14), decoration: BoxDecoration(gradient: const LinearGradient(colors: [AppColors.primary, AppColors.purple]), borderRadius: BorderRadius.circular(20)), child: const Row(children: [AppModuleIcon(icon: Icons.bar_chart_rounded, color: Colors.white, size: 50), SizedBox(width: 12), Expanded(child: Text('Sales performance at a glance', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w900)))]))),
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
             child: SegmentedButton<ReportPeriodKind>(
