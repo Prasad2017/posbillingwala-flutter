@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pos_billingwala_v2/core/constants/app_colors.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pos_billingwala_v2/core/widgtes/widgtes.dart';
 import 'package:pos_billingwala_v2/core/widgets/app_module_icon.dart';
@@ -23,7 +24,7 @@ Future<bool> showReportPinGate(BuildContext context, WidgetRef ref) async {
         children: [
           const Center(child: AppModuleIcon(icon: Icons.lock_rounded, color: AppColors.primary, size: 68)),
           const SizedBox(height: 12),
-          const Text('This protects sales and invoice reports.', textAlign: TextAlign.center),
+          Container(padding: const EdgeInsets.all(12), decoration: BoxDecoration(color: AppColors.primary.withValues(alpha: .07), borderRadius: BorderRadius.circular(16)), child: const Text('This protects sales and invoice reports.', textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.w700, color: AppColors.navy))),
           const SizedBox(height: 16),
           AppTextField(
             controller: controller,
