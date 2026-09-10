@@ -6,6 +6,8 @@ import 'package:pos_billingwala_v2/features/print/domain/esc_pos_transport_hub.d
 import 'package:pos_billingwala_v2/features/print/domain/printer_settings.dart';
 import 'package:unified_esc_pos_printer/unified_esc_pos_printer.dart' as esc;
 import 'package:pos_billingwala_v2/core/widgtes/widgtes.dart';
+import 'package:pos_billingwala_v2/core/constants/app_colors.dart';
+import 'package:pos_billingwala_v2/core/widgets/app_module_icon.dart';
 
 /// Result returned when the user picks a printer for bill/KOT.
 class PickedPrinter {
@@ -246,7 +248,9 @@ class _PrinterDevicePickerPageState extends State<PrinterDevicePickerPage>
           ),
         ],
       ),
-      body: TabBarView(
+      body: Column(children: [
+        Container(margin: const EdgeInsets.fromLTRB(16, 12, 16, 0), padding: const EdgeInsets.all(14), decoration: BoxDecoration(color: AppColors.primary.withValues(alpha: .08), borderRadius: BorderRadius.circular(20)), child: const Row(children: [AppModuleIcon(icon: Icons.print_connect_rounded, color: AppColors.primary, size: 48), SizedBox(width: 12), Expanded(child: Text('Connect your billing printer', style: TextStyle(fontWeight: FontWeight.w900, color: AppColors.navy)))])),
+        Expanded(child: TabBarView(
         controller: _tabs,
         children: [
           _deviceList(
