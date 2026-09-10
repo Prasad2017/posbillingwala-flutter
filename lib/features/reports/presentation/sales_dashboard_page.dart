@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
@@ -29,7 +29,7 @@ class SalesDashboardPage extends ConsumerWidget {
       body: ListView(
         padding: const EdgeInsets.fromLTRB(16, 12, 16, 32),
         children: [
-          const AppModuleIcon(icon: Icons.auto_graph_rounded, color: AppColors.primary, size: 58),
+          Container(padding: const EdgeInsets.all(14), decoration: BoxDecoration(gradient: const LinearGradient(colors: [AppColors.primary, AppColors.purple]), borderRadius: BorderRadius.circular(22)), child: const Row(children: [AppModuleIcon(icon: Icons.auto_graph_rounded, color: Colors.white, size: 52), SizedBox(width: 12), Expanded(child: Text('Live sales performance at a glance', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w900)))])),
           const SizedBox(height: 10),
           Row(
             children: [
