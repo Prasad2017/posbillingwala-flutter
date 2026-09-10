@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:pos_billingwala_v2/core/constants/app_colors.dart';
 import 'package:pos_billingwala_v2/features/mess/domain/mess_providers.dart';
+import 'package:pos_billingwala_v2/core/widgets/app_module_icon.dart';
 
 class MessTokenScanPage extends ConsumerStatefulWidget {
   const MessTokenScanPage({super.key});
@@ -75,6 +76,25 @@ class _MessTokenScanPageState extends ConsumerState<MessTokenScanPage> {
       body: Stack(
         children: [
           MobileScanner(controller: _controller, onDetect: _onDetect),
+          Align(
+            alignment: Alignment.topCenter,
+            child: SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.all(18),
+                child: Container(
+                  padding: const EdgeInsets.all(14),
+                  decoration: BoxDecoration(color: Colors.white.withValues(alpha: .94), borderRadius: BorderRadius.circular(20)),
+                  child: const Row(
+                    children: [
+                      AppModuleIcon(icon: Icons.qr_code_scanner_rounded, color: AppColors.primary, size: 48),
+                      SizedBox(width: 12),
+                      Expanded(child: Text('Scan meal token', style: TextStyle(fontWeight: FontWeight.w900, color: AppColors.navy))),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
