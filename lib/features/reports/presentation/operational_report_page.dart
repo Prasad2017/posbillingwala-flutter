@@ -8,6 +8,7 @@ import 'package:pos_billingwala_v2/features/reports/domain/report_export.dart';
 import 'package:pos_billingwala_v2/features/reports/domain/reports_providers.dart';
 import 'package:pos_billingwala_v2/features/reports/presentation/report_period_controls.dart';
 import 'package:pos_billingwala_v2/core/widgtes/widgtes.dart';
+import 'package:pos_billingwala_v2/core/widgets/app_module_icon.dart';
 
 /// Reusable operational report: period chips, optional payment KPIs, invoice list.
 class OperationalReportPage extends ConsumerStatefulWidget {
@@ -55,7 +56,7 @@ class _OperationalReportPageState extends ConsumerState<OperationalReportPage> {
     final invoicesAsync = ref.watch(periodInvoicesProvider);
     final filtered = ref.watch(filteredPeriodInvoicesProvider);
     final summary = ref.watch(periodSalesSummaryProvider);
-    final currency = NumberFormat.currency(locale: 'en_IN', symbol: 'â‚¹');
+    final currency = NumberFormat.currency(locale: 'en_IN', symbol: '₹');
     final timeFormat = DateFormat('dd MMM, hh:mm a');
 
     return Scaffold(
@@ -68,7 +69,7 @@ class _OperationalReportPageState extends ConsumerState<OperationalReportPage> {
                 ? null
                 : () => shareInvoicesCsv(
                       invoices: filtered,
-                      title: '${widget.title} â€” ${period.label}',
+                      title: '${widget.title} — ${period.label}',
                     ),
             icon: const Icon(Icons.ios_share_rounded),
           ),
@@ -97,6 +98,7 @@ class _OperationalReportPageState extends ConsumerState<OperationalReportPage> {
       ),
       body: Column(
         children: [
+          Container(margin: const EdgeInsets.fromLTRB(16, 10, 16, 0), padding: const EdgeInsets.all(14), decoration: BoxDecoration(color: AppColors.primary.withValues(alpha: .08), borderRadius: BorderRadius.circular(20)), child: const Row(children: [AppModuleIcon(icon: Icons.insights_rounded, color: AppColors.primary, size: 48), SizedBox(width: 12), Expanded(child: Text('Live operational insights', style: TextStyle(fontWeight: FontWeight.w900, color: AppColors.navy)))])),
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
             child: SegmentedButton<ReportPeriodKind>(
@@ -261,7 +263,7 @@ class _OperationalReportPageState extends ConsumerState<OperationalReportPage> {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    '${summary.billCount} bills Â· Avg ${currency.format(summary.avgBill)}',
+                    '${summary.billCount} bills • Avg ${currency.format(summary.avgBill)}',
                     style: const TextStyle(color: Colors.white70),
                   ),
                 ],
@@ -407,7 +409,7 @@ class _InvoiceTile extends StatelessWidget {
             invoice.paymentMode,
             if (invoice.discount > 0)
               'Disc ${currency.format(invoice.discount)}',
-          ].join(' Â· '),
+          ].join(' • '),
         ),
         trailing: Text(
           currency.format(invoice.totalAmount),
