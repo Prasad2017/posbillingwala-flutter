@@ -14,7 +14,12 @@ class AppModuleIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return TweenAnimationBuilder<double>(
+      tween: Tween(begin: .92, end: 1),
+      duration: const Duration(milliseconds: 240),
+      curve: Curves.easeOutBack,
+      builder: (context, value, child) => Transform.scale(scale: value, child: child),
+      child: Container(
       width: size,
       height: size,
       decoration: BoxDecoration(
@@ -23,6 +28,7 @@ class AppModuleIcon extends StatelessWidget {
         border: Border.all(color: color.withValues(alpha: 0.12)),
       ),
       child: Icon(icon, color: color, size: size * 0.48),
+      ),
     );
   }
 }
