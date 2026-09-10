@@ -79,6 +79,7 @@ class SyncPage extends ConsumerWidget {
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
             child: AppCard(
+            accentColor: AppColors.primary,
             color: AppColors.primary,
             padding: const EdgeInsets.all(16),
             child: Column(
