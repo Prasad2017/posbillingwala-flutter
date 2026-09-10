@@ -6,6 +6,7 @@ import 'package:pos_billingwala_v2/features/notifications/domain/fcm_service.dar
 import 'package:pos_billingwala_v2/features/notifications/domain/notification_navigator.dart';
 import 'package:pos_billingwala_v2/features/notifications/domain/notification_providers.dart';
 import 'package:pos_billingwala_v2/core/widgtes/widgtes.dart';
+import 'package:pos_billingwala_v2/core/widgets/app_module_icon.dart';
 
 class NotificationsPage extends ConsumerStatefulWidget {
   const NotificationsPage({super.key});
@@ -49,6 +50,30 @@ class _NotificationsPageState extends ConsumerState<NotificationsPage> {
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
+          Container(
+            padding: const EdgeInsets.all(18),
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(colors: [AppColors.primary, AppColors.primaryDark]),
+              borderRadius: BorderRadius.circular(24),
+            ),
+            child: Row(
+              children: [
+                const AppModuleIcon(icon: Icons.notifications_active_rounded, color: Colors.white, size: 54),
+                const SizedBox(width: 14),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text('Stay updated', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 18)),
+                      const SizedBox(height: 4),
+                      Text(items.length.toString() + ' alerts • ' + _messTokens.length.toString() + ' pending tokens', style: const TextStyle(color: Colors.white70)),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 20),
           if (_messTokens.isNotEmpty) ...[
             Text(
               'Pending mess meal tokens',
@@ -62,7 +87,7 @@ class _NotificationsPageState extends ConsumerState<NotificationsPage> {
             color: AppColors.warning.withValues(alpha: 0.12),
             padding: EdgeInsets.zero,
             child: ListTile(
-                      leading: const Icon(Icons.qr_code_2_rounded),
+                      leading: const AppModuleIcon(icon: Icons.qr_code_2_rounded, color: AppColors.orange, size: 48),
                       title: Text(
                         t['tokenNumber']?.toString().isNotEmpty == true
                             ? t['tokenNumber'].toString()
@@ -76,7 +101,7 @@ class _NotificationsPageState extends ConsumerState<NotificationsPage> {
                           if ((t['registrationNo']?.toString() ?? '')
                               .isNotEmpty)
                             t['registrationNo'],
-                        ].join(' Â· '),
+                        ].join(' • '),
                       ),
                     ),
                   ),
@@ -102,9 +127,11 @@ class _NotificationsPageState extends ConsumerState<NotificationsPage> {
           else
             ...items.map(
               (n) => AppCard(
+            accentColor: n.read ? AppColors.teal : AppColors.primary,
             color: n.read ? null : AppColors.primaryLight,
             padding: EdgeInsets.zero,
             child: ListTile(
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
                   onTap: () async {
                     await ref
                         .read(inAppNotificationsProvider.notifier)
@@ -116,11 +143,12 @@ class _NotificationsPageState extends ConsumerState<NotificationsPage> {
                       url: n.url,
                     );
                   },
-                  leading: Icon(
-                    n.type == 'license_expiring'
+                  leading: AppModuleIcon(
+                    icon: n.type == 'license_expiring'
                         ? Icons.warning_amber_rounded
                         : Icons.campaign_rounded,
-                    color: AppColors.primary,
+                    color: n.type == 'license_expiring' ? AppColors.orange : AppColors.primary,
+                    size: 48,
                   ),
                   title: Text(
                     n.title,
