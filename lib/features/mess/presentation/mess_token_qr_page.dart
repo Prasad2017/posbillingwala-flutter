@@ -82,6 +82,8 @@ class MessTokenQrPage extends ConsumerWidget {
       body: ListView(
         padding: const EdgeInsets.all(24),
         children: [
+          Center(child: AppModuleIcon(icon: Icons.qr_code_2_rounded, color: AppColors.teal, size: 70)),
+          const SizedBox(height: 12),
           AppCard(
             accentColor: AppColors.primary,
             padding: const EdgeInsets.all(24),
