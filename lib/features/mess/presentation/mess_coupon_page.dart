@@ -9,6 +9,7 @@ import 'package:pos_billingwala_v2/features/mess/data/mess_api.dart';
 import 'package:pos_billingwala_v2/features/print/domain/print_providers.dart';
 import 'package:pos_billingwala_v2/features/print/domain/print_service.dart';
 import 'package:pos_billingwala_v2/core/widgtes/widgtes.dart';
+import 'package:pos_billingwala_v2/core/widgets/app_module_icon.dart';
 
 /// Android InvoiceMess / CouponBluetoothPrint â€” paper meal coupon.
 class MessCouponPage extends ConsumerStatefulWidget {
@@ -128,9 +129,11 @@ class _MessCouponPageState extends ConsumerState<MessCouponPage> {
         padding: const EdgeInsets.all(16),
         children: [
           AppCard(
+            accentColor: AppColors.teal,
             padding: EdgeInsets.zero,
             child: ListTile(
-              leading: const Icon(Icons.person_outline, color: AppColors.primary),
+              contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+              leading: const AppModuleIcon(icon: Icons.person_rounded, color: AppColors.teal, size: 52),
               title: Text(
                 widget.member.memberName,
                 style: const TextStyle(fontWeight: FontWeight.w800),
@@ -141,8 +144,11 @@ class _MessCouponPageState extends ConsumerState<MessCouponPage> {
             ),
           ),
           const SizedBox(height: 16),
+          const SizedBox(height: 4),
+          const AppModuleIcon(icon: Icons.restaurant_menu_rounded, color: AppColors.orange, size: 54),
+          const SizedBox(height: 8),
           Text(
-            'Meal type',
+            'Choose meal type',
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w700,
                 ),
