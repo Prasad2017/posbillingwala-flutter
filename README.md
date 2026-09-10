@@ -71,3 +71,17 @@ lib/
 ## Version
 
 `2.0.1+2`
+
+
+## Development verification
+
+Before release, run the following checks locally or in CI:
+
+```bash
+flutter pub get
+flutter analyze
+flutter test
+flutter build apk --debug
+```
+
+The `ui/modern-logo-theme` branch contains the modern UI redesign and should pass these checks before merging to the release branch.
