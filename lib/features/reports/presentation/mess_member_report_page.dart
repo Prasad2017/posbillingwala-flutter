@@ -27,7 +27,9 @@ class MessMemberReportPage extends ConsumerWidget {
           ),
         ],
       ),
-      body: membersAsync.when(
+      body: Column(children: [
+        Container(margin: const EdgeInsets.fromLTRB(16, 10, 16, 4), padding: const EdgeInsets.all(14), decoration: BoxDecoration(color: AppColors.teal.withValues(alpha: .08), borderRadius: BorderRadius.circular(20)), child: const Row(children: [AppModuleIcon(icon: Icons.people_alt_rounded, color: AppColors.teal, size: 48), SizedBox(width: 12), Expanded(child: Text('Member activity and payment history', style: TextStyle(fontWeight: FontWeight.w900, color: AppColors.navy)))])),
+        Expanded(child: membersAsync.when(
         data: (members) {
           if (members.isEmpty) {
             return const Center(child: Text('No mess members yet'));
@@ -78,7 +80,8 @@ class MessMemberReportPage extends ConsumerWidget {
         },
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (e, _) => Center(child: Text('$e')),
-      ),
+      )),
+      ]),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => context.push('/mess/payments'),
         icon: const Icon(Icons.payments_rounded),
