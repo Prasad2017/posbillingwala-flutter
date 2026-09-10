@@ -22,12 +22,12 @@ class AppTheme {
       dividerColor: const Color(0xFFE9EEF7),
       appBarTheme: const AppBarTheme(
         centerTitle: false,
-        backgroundColor: Colors.transparent,
-        foregroundColor: AppColors.navy,
+        backgroundColor: AppColors.primary,
+        foregroundColor: Colors.white,
         elevation: 0,
         scrolledUnderElevation: 0,
         surfaceTintColor: Colors.transparent,
-        titleTextStyle: TextStyle(color: AppColors.navy, fontSize: 21, fontWeight: FontWeight.w900),
+        titleTextStyle: TextStyle(color: Colors.white, fontSize: 21, fontWeight: FontWeight.w900),
       ),
       cardTheme: CardThemeData(
         elevation: 0,
