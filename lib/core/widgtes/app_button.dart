@@ -46,6 +46,8 @@ class AppButton extends StatelessWidget {
           onPressed: onTap,
           style: FilledButton.styleFrom(
             backgroundColor: AppColors.primary,
+            elevation: 0,
+            padding: const EdgeInsets.symmetric(vertical: 15),
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           ),
           child: child,
@@ -54,6 +56,8 @@ class AppButton extends StatelessWidget {
           onPressed: onTap,
           style: FilledButton.styleFrom(
             backgroundColor: AppColors.green,
+            elevation: 0,
+            padding: const EdgeInsets.symmetric(vertical: 15),
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           ),
           child: child,
@@ -62,6 +66,8 @@ class AppButton extends StatelessWidget {
           onPressed: onTap,
           style: FilledButton.styleFrom(
             backgroundColor: AppColors.red,
+            elevation: 0,
+            padding: const EdgeInsets.symmetric(vertical: 15),
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           ),
           child: child,
