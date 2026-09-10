@@ -62,13 +62,14 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
         context: context,
         barrierDismissible: false,
         builder: (context) => AlertDialog(
-          title: const Text('Trial account created'),
-          content: Text(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+          title: const Row(children: [AppModuleIcon(icon: Icons.verified_rounded, color: AppColors.teal, size: 46), SizedBox(width: 10), Expanded(child: Text('Trial account created'))]),
+          content: AppCard(accentColor: AppColors.teal, child: Text(
             'Licence key: ${result.licenceKey}\n'
             'PB-PIN: $mpin\n'
             'Report PIN: $reportPin\n\n'
             'Save these details. We will log you in next.',
-          ),
+          )),
           actions: [
             AppButton(
               label: 'Continue',
