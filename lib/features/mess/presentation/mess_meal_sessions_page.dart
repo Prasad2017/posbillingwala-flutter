@@ -59,6 +59,7 @@ class _MessMealSessionsPageState extends ConsumerState<MessMealSessionsPage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
+          Container(margin: const EdgeInsets.fromLTRB(16, 10, 16, 8), padding: const EdgeInsets.all(14), decoration: BoxDecoration(gradient: const LinearGradient(colors: [AppColors.teal, AppColors.primary]), borderRadius: BorderRadius.circular(22)), child: const Row(children: [AppModuleIcon(icon: Icons.schedule_rounded, color: Colors.white, size: 48), SizedBox(width: 12), Expanded(child: Text('Plan breakfast, lunch & dinner sessions', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w900)))])),
                 AppTextField(
                       controller: nameCtrl,
                       label: 'Session name',
