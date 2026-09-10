@@ -17,7 +17,10 @@ class AppSectionHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return AnimatedOpacity(
+      opacity: 1,
+      duration: const Duration(milliseconds: 220),
+      child: Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         Expanded(
@@ -49,6 +52,7 @@ class AppSectionHeader extends StatelessWidget {
                 )),
           ),
       ],
+      ),
     );
   }
 }
