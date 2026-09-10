@@ -13,6 +13,8 @@ import 'package:pos_billingwala_v2/features/print/domain/printer_settings.dart';
 import 'package:pos_billingwala_v2/features/print/domain/shop_receipt_profile.dart';
 import 'package:pos_billingwala_v2/features/print/presentation/printer_device_picker_page.dart';
 import 'package:pos_billingwala_v2/core/widgtes/widgtes.dart';
+import 'package:pos_billingwala_v2/core/widgets/app_module_icon.dart';
+import 'package:pos_billingwala_v2/core/widgets/app_module_icon.dart';
 
 class SettingsPage extends ConsumerStatefulWidget {
   const SettingsPage({super.key});
@@ -53,7 +55,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
   bool _companyBusy = false;
   bool _permissionBusy = false;
   bool _btBusy = false;
-  String _btStatus = 'Checkingâ€¦';
+  String _btStatus = 'Checking…';
   String _usbStatus = 'USB idle';
   Map<Permission, PermissionStatus> _permissionStatuses = const {};
   final _hub = BluetoothPrinterHub.instance;
@@ -636,6 +638,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
+            Container(margin: const EdgeInsets.fromLTRB(16, 10, 16, 18), padding: const EdgeInsets.all(16), decoration: BoxDecoration(gradient: const LinearGradient(colors: [AppColors.primary, AppColors.primaryDark]), borderRadius: BorderRadius.circular(22)), child: const Row(children: [AppModuleIcon(icon: Icons.tune_rounded, color: Colors.white, size: 52), SizedBox(width: 12), Expanded(child: Text('Configure your POS your way', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 17)))])),
           Text(
             'Company',
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
