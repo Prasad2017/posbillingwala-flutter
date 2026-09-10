@@ -47,10 +47,16 @@ class AppCard extends StatelessWidget {
         clipBehavior: Clip.antiAlias,
         child: InkWell(
           onTap: onTap,
-          child: Padding(
+          splashColor: (accent ?? AppColors.primary).withValues(alpha: .08),
+          highlightColor: (accent ?? AppColors.primary).withValues(alpha: .04),
+          child: AnimatedPadding(
+            duration: const Duration(milliseconds: 180),
+            padding: EdgeInsets.zero,
+            child: Padding(
             padding: padding,
             child: child,
           ),
+            ),
         ),
       ),
     );
