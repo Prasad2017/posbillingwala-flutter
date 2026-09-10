@@ -6,6 +6,8 @@ import 'package:pos_billingwala_v2/core/constants/app_colors.dart';
 import 'package:pos_billingwala_v2/core/constants/app_constants.dart';
 import 'package:pos_billingwala_v2/core/permissions/app_permission_service.dart';
 import 'package:pos_billingwala_v2/core/widgtes/widgtes.dart';
+import 'package:pos_billingwala_v2/core/widgets/app_module_icon.dart';
+import 'package:pos_billingwala_v2/core/widgets/donut_chart.dart';
 import 'package:pos_billingwala_v2/features/auth/domain/auth_controller.dart';
 import 'package:pos_billingwala_v2/features/auth/domain/user_session.dart';
 import 'package:pos_billingwala_v2/features/masters/domain/masters_providers.dart';
@@ -396,6 +398,52 @@ class _HomePageState extends ConsumerState<HomePage> {
               ),
             SliverToBoxAdapter(
               child: Padding(
+                padding: const EdgeInsets.fromLTRB(16, 18, 16, 0),
+                child: AppCard(
+                  padding: const EdgeInsets.all(18),
+                  accentColor: AppColors.purple,
+                  child: Row(
+                    children: [
+                      DonutChart(
+                        values: [
+                          todaySummary.cashTotal.toDouble(),
+                          todaySummary.upiTotal.toDouble(),
+                          (todaySummary.totalSales - todaySummary.cashTotal - todaySummary.upiTotal).clamp(0, double.infinity).toDouble(),
+                        ],
+                        colors: const [AppColors.primary, AppColors.orange, AppColors.green],
+                        centerValue: currency.format(todaySummary.totalSales),
+                        centerTitle: 'Today',
+                        size: 138,
+                        strokeWidth: 16,
+                      ),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text('Payment overview', style: TextStyle(fontWeight: FontWeight.w900, color: AppColors.navy)),
+                            const SizedBox(height: 10),
+                            _PaymentLegend(color: AppColors.primary, label: 'Cash'),
+                            const SizedBox(height: 7),
+                            _PaymentLegend(color: AppColors.orange, label: 'UPI'),
+                            const SizedBox(height: 7),
+                            _PaymentLegend(color: AppColors.green, label: 'Other'),
+                            const SizedBox(height: 12),
+                            TextButton.icon(
+                              onPressed: () => pushReportsUnlocked(context, ref),
+                              icon: const Icon(Icons.insights_rounded, size: 18),
+                              label: const Text('View analytics'),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: Padding(
                 padding: const EdgeInsets.fromLTRB(16, 20, 16, 0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -736,6 +784,29 @@ class _SalesCard extends StatelessWidget {
   }
 }
 
+Color _colorForIcon(IconData icon) {
+  const colors = [
+    AppColors.primary, AppColors.orange, AppColors.green,
+    AppColors.purple, AppColors.red, AppColors.teal,
+  ];
+  return colors[icon.codePoint % colors.length];
+}
+
+class _PaymentLegend extends StatelessWidget {
+  const _PaymentLegend({required this.color, required this.label});
+  final Color color;
+  final String label;
+
+  @override
+  Widget build(BuildContext context) => Row(
+    children: [
+      Container(width: 9, height: 9, decoration: BoxDecoration(color: color, shape: BoxShape.circle)),
+      const SizedBox(width: 8),
+      Text(label, style: const TextStyle(fontWeight: FontWeight.w700)),
+    ],
+  );
+}
+
 class _CatalogTile extends StatelessWidget {
   const _CatalogTile({
     required this.icon,
@@ -756,7 +827,7 @@ class _CatalogTile extends StatelessWidget {
       onTap: onTap,
       child: Column(
         children: [
-          Icon(icon, color: AppColors.primary),
+          AppModuleIcon(icon: icon, color: _colorForIcon(icon), size: 46),
           const SizedBox(height: 8),
           Text(
             value,
