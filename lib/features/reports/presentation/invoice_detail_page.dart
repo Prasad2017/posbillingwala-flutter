@@ -74,7 +74,9 @@ class InvoiceDetailPage extends ConsumerWidget {
           ),
         ],
       ),
-      body: detailAsync.when(
+      body: Column(children: [
+        Container(margin: const EdgeInsets.fromLTRB(16, 10, 16, 4), padding: const EdgeInsets.all(14), decoration: BoxDecoration(color: AppColors.primary.withValues(alpha: .08), borderRadius: BorderRadius.circular(20)), child: const Row(children: [AppModuleIcon(icon: Icons.receipt_long_rounded, color: AppColors.primary, size: 50), SizedBox(width: 12), Expanded(child: Text('Invoice summary & customer details', style: TextStyle(fontWeight: FontWeight.w900, color: AppColors.navy)))])),
+        Expanded(child: detailAsync.when(
         data: (detail) {
           if (detail == null) {
             return const Center(child: Text('Bill not found'));
@@ -425,7 +427,8 @@ class InvoiceDetailPage extends ConsumerWidget {
         },
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (e, _) => Center(child: Text('$e')),
-      ),
+      )),
+      ]),
     );
   }
 
