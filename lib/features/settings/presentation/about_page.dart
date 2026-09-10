@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:pos_billingwala_v2/core/constants/app_colors.dart';
 import 'package:pos_billingwala_v2/core/constants/app_constants.dart';
 import 'package:pos_billingwala_v2/core/widgtes/widgtes.dart';
+import 'package:pos_billingwala_v2/core/widgets/app_module_icon.dart';
 
 class AboutPage extends StatelessWidget {
   const AboutPage({super.key});
@@ -15,18 +16,11 @@ class AboutPage extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         children: [
           AppCard(
+            accentColor: AppColors.primary,
             padding: const EdgeInsets.all(24),
             child: Column(
               children: [
-                const CircleAvatar(
-                  radius: 36,
-                  backgroundColor: AppColors.primaryLight,
-                  child: Icon(
-                    Icons.point_of_sale_rounded,
-                    size: 36,
-                    color: AppColors.primary,
-                  ),
-                ),
+                const AppModuleIcon(icon: Icons.point_of_sale_rounded, color: AppColors.primary, size: 76),
                 const SizedBox(height: 16),
                 Text(
                   AppConstants.appName,
