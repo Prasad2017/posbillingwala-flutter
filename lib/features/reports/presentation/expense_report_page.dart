@@ -8,6 +8,7 @@ import 'package:pos_billingwala_v2/features/reports/domain/report_export.dart';
 import 'package:pos_billingwala_v2/features/reports/domain/reports_providers.dart';
 import 'package:pos_billingwala_v2/features/reports/presentation/report_period_controls.dart';
 import 'package:pos_billingwala_v2/core/widgtes/widgtes.dart';
+import 'package:pos_billingwala_v2/core/widgets/app_module_icon.dart';
 
 /// Expense-wise report with period filter and Excel share.
 class ExpenseReportPage extends ConsumerWidget {
@@ -31,7 +32,7 @@ class ExpenseReportPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final period = ref.watch(reportPeriodProvider);
     final expensesAsync = ref.watch(expensesProvider);
-    final currency = NumberFormat.currency(locale: 'en_IN', symbol: 'â‚¹');
+    final currency = NumberFormat.currency(locale: 'en_IN', symbol: '₹');
     final dateFmt = DateFormat('dd MMM yyyy, hh:mm a');
 
     return Scaffold(
@@ -46,7 +47,7 @@ class ExpenseReportPage extends ConsumerWidget {
                 if (filtered.isEmpty) return null;
                 return () => shareExpensesCsv(
                       expenses: filtered,
-                      title: 'Expense Report â€” ${period.label}',
+                      title: 'Expense Report — ${period.label}',
                     );
               },
               orElse: () => null,
@@ -126,10 +127,10 @@ class ExpenseReportPage extends ConsumerWidget {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Icon(
-                            Icons.account_balance_wallet_outlined,
-                            size: 56,
-                            color: AppColors.primary,
+                          const AppModuleIcon(
+                            icon: Icons.account_balance_wallet_outlined,
+                            color: AppColors.orange,
+                            size: 72,
                           ),
                           const SizedBox(height: 12),
                           Text(
@@ -159,9 +160,12 @@ class ExpenseReportPage extends ConsumerWidget {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
                       child: AppCard(
-            color: AppColors.primaryLight,
-            padding: EdgeInsets.zero,
-            child: ListTile(
+                        accentColor: AppColors.orange,
+                        color: AppColors.orange.withValues(alpha: .08),
+                        padding: EdgeInsets.zero,
+                        child: ListTile(
+                          contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                          leading: const AppModuleIcon(icon: Icons.account_balance_wallet_rounded, color: AppColors.orange, size: 50),
                           title: Text(
                             '${filtered.length} expense'
                             '${filtered.length == 1 ? '' : 's'}',
