@@ -5,8 +5,6 @@ import 'package:pos_billingwala_v2/core/widgtes/widgtes.dart';
 import 'package:pos_billingwala_v2/features/auth/domain/auth_controller.dart';
 import 'package:pos_billingwala_v2/core/constants/app_colors.dart';
 import 'package:pos_billingwala_v2/core/widgets/app_module_icon.dart';
-import 'package:pos_billingwala_v2/core/constants/app_colors.dart';
-import 'package:pos_billingwala_v2/core/widgets/app_module_icon.dart';
 
 class ChangePinPage extends ConsumerStatefulWidget {
   const ChangePinPage({super.key});
@@ -86,6 +84,11 @@ class _ChangePinPageState extends ConsumerState<ChangePinPage> {
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
+              const Center(child: AppModuleIcon(icon: Icons.lock_reset_rounded, color: AppColors.red, size: 72)),
+              const SizedBox(height: 14),
+              const Center(child: Text('Keep your billing secure', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900, color: AppColors.navy))),
+              const SizedBox(height: 20),
+              AppCard(accentColor: AppColors.red, child: Column(children: [
           const Padding(
             padding: EdgeInsets.only(bottom: 18),
             child: Column(children: [
@@ -109,7 +112,7 @@ class _ChangePinPageState extends ConsumerState<ChangePinPage> {
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   ),
                   const SizedBox(height: 12),
-                ],
+                ])),
                 AppTextField(
                   controller: _next,
                   label: 'New PB-PIN',
