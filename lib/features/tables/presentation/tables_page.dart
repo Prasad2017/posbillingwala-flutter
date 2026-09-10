@@ -559,15 +559,23 @@ class _TableCard extends StatelessWidget {
         ? 'Table ${table.tableNumber}'
         : table.displayName;
 
-    return Card(
-      color: _bg,
-      clipBehavior: Clip.antiAlias,
-      child: InkWell(
-        onTap: onTap,
-        onLongPress: onLongPress,
-        child: Padding(
-          padding: const EdgeInsets.all(14),
-          child: Column(
+    return Container(
+      decoration: BoxDecoration(
+        color: _bg,
+        borderRadius: BorderRadius.circular(22),
+        border: Border.all(color: _fg.withValues(alpha: .18)),
+        boxShadow: [BoxShadow(color: _fg.withValues(alpha: .06), blurRadius: 16, offset: const Offset(0, 6))],
+      ),
+      child: Material(
+        color: Colors.transparent,
+        borderRadius: BorderRadius.circular(22),
+        clipBehavior: Clip.antiAlias,
+        child: InkWell(
+          onTap: onTap,
+          onLongPress: onLongPress,
+          child: Padding(
+            padding: const EdgeInsets.all(14),
+            child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
@@ -621,7 +629,7 @@ class _TableCard extends StatelessWidget {
               ] else if (floor.isJoinedSecondary) ...[
                 const SizedBox(height: 8),
                 Text(
-                  'Joined â†’ T${floor.billingTableNumber}',
+                  'Joined → T${floor.billingTableNumber}',
                   style: TextStyle(
                     color: _fg,
                     fontWeight: FontWeight.w700,
@@ -630,6 +638,7 @@ class _TableCard extends StatelessWidget {
                 ),
               ],
             ],
+          ),
           ),
         ),
       ),
