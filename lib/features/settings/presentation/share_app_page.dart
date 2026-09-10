@@ -42,7 +42,8 @@ class ShareAppPage extends StatelessWidget {
     showDialog<void>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Share QR'),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+        title: const Row(children: [AppModuleIcon(icon: Icons.qr_code_2_rounded, color: AppColors.primary, size: 40), SizedBox(width: 10), Text('Share QR')]),
         content: SizedBox(
           width: 240,
           child: Column(
@@ -65,6 +66,7 @@ class ShareAppPage extends StatelessWidget {
               ),
             ],
           ),
+        ),
         ),
         actions: [
           TextButton(
