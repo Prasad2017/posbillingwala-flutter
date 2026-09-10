@@ -5,6 +5,7 @@ import 'package:pos_billingwala_v2/core/constants/app_colors.dart';
 import 'package:pos_billingwala_v2/features/sync/domain/full_sync_controller.dart';
 import 'package:pos_billingwala_v2/features/sync/domain/sync_providers.dart';
 import 'package:pos_billingwala_v2/core/widgtes/widgtes.dart';
+import 'package:pos_billingwala_v2/core/widgets/app_module_icon.dart';
 
 class SyncPage extends ConsumerWidget {
   const SyncPage({super.key});
@@ -15,7 +16,7 @@ class SyncPage extends ConsumerWidget {
     final syncState = ref.watch(invoiceSyncControllerProvider);
     final fullState = ref.watch(fullSyncControllerProvider);
     final isBusy = syncState.isLoading || fullState.isLoading;
-    final currency = NumberFormat.currency(locale: 'en_IN', symbol: 'â‚¹');
+    final currency = NumberFormat.currency(locale: 'en_IN', symbol: '₹');
 
     ref.listen(invoiceSyncControllerProvider, (prev, next) {
       next.whenOrNull(
@@ -83,15 +84,21 @@ class SyncPage extends ConsumerWidget {
             child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    const Text(
+                    const Row(
+                      children: [
+                        AppModuleIcon(icon: Icons.cloud_sync_rounded, color: Colors.white, size: 50),
+                        SizedBox(width: 12),
+                        Expanded(child: Text(
                       'Full sync',
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.w800,
                         fontSize: 18,
                       ),
+                    )),
+                      ],
                     ),
-                    const SizedBox(height: 6),
+                    const SizedBox(height: 8),
                     Text(
                       'Upload pending masters, bills, inventory, mess, dining & company, '
                       'then download the latest from cloud.',
@@ -179,7 +186,7 @@ class SyncPage extends ConsumerWidget {
           ),
                     const SizedBox(height: 8),
                     Text(
-                      'Upload = pending offline data â†’ server. '
+                      'Upload = pending offline data → server. '
                       'Download = refresh from server. '
                       'Fetch data = wipe local ops tables then download.',
                       style: TextStyle(
@@ -251,7 +258,7 @@ class SyncPage extends ConsumerWidget {
                               style:
                                   const TextStyle(fontWeight: FontWeight.w700),
                             ),
-                            loading: () => const Text('Checking pendingâ€¦'),
+                            loading: () => const Text('Checking pending…'),
                             error: (e, _) => Text('$e'),
                           ),
                         ),
