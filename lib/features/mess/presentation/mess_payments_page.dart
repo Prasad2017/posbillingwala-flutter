@@ -271,13 +271,16 @@ class _MessPaymentsPageState extends ConsumerState<MessPaymentsPage> {
             icon: const Icon(Icons.refresh_rounded),
           ),
         ],
-      ),
+      )),
+      ]),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _busy ? null : _addPayment,
         icon: const Icon(Icons.payments_rounded),
         label: const Text('Add payment'),
       ),
-      body: _payments.when(
+      body: Column(children: [
+        Container(margin: const EdgeInsets.fromLTRB(16, 10, 16, 0), padding: const EdgeInsets.all(14), decoration: BoxDecoration(color: AppColors.teal.withValues(alpha: .08), borderRadius: BorderRadius.circular(20)), child: const Row(children: [AppModuleIcon(icon: Icons.currency_rupee_rounded, color: AppColors.teal, size: 48), SizedBox(width: 12), Expanded(child: Text('Track member payments and balances', style: TextStyle(fontWeight: FontWeight.w900, color: AppColors.navy)))])),
+        Expanded(child: _payments.when(
         data: (rows) {
           if (rows.isEmpty) {
             return const Center(child: Text('No payments yet'));
