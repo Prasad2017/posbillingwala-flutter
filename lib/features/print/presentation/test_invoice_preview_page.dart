@@ -7,6 +7,7 @@ import 'package:pos_billingwala_v2/features/print/domain/bluetooth_printer_hub.d
 import 'package:pos_billingwala_v2/features/print/domain/print_providers.dart';
 import 'package:pos_billingwala_v2/features/print/domain/printer_settings.dart';
 import 'package:pos_billingwala_v2/core/widgtes/widgtes.dart';
+import 'package:pos_billingwala_v2/core/widgets/app_module_icon.dart';
 
 /// Android-style sample invoice / KOT preview before test print.
 class TestInvoicePreviewPage extends ConsumerStatefulWidget {
@@ -101,9 +102,11 @@ class _TestInvoicePreviewPageState extends ConsumerState<TestInvoicePreviewPage>
       body: ListView(
         padding: const EdgeInsets.fromLTRB(16, 16, 16, 100),
         children: [
+          Center(child: AppModuleIcon(icon: _isKot ? Icons.restaurant_rounded : Icons.receipt_long_rounded, color: _isKot ? AppColors.orange : AppColors.primary, size: 68)),
+          const SizedBox(height: 12),
           Text(
-            'Sample ${_isKot ? 'KOT' : 'invoice'} â€” not saved to bills. '
-            'Print to verify layout, â‚¹, and printer connection.',
+            'Sample ${_isKot ? 'KOT' : 'invoice'} — not saved to bills. '
+            'Print to verify layout, ₹, and printer connection.',
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   color: Colors.black54,
                 ),
@@ -114,7 +117,7 @@ class _TestInvoicePreviewPageState extends ConsumerState<TestInvoicePreviewPage>
               constraints: BoxConstraints(
                 maxWidth: chars <= 32 ? 280 : 360,
               ),
-              child: Material(
+              child: AppCard(accentColor: _isKot ? AppColors.orange : AppColors.primary, padding: EdgeInsets.zero, child: Material(
                 color: Colors.white,
                 elevation: 2,
                 shadowColor: Colors.black26,
@@ -139,7 +142,7 @@ class _TestInvoicePreviewPageState extends ConsumerState<TestInvoicePreviewPage>
                   ),
                 ),
               ),
-            ),
+            )),
           ),
           const SizedBox(height: 12),
           Text(
