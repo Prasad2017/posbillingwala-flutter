@@ -8,6 +8,7 @@ import 'package:pos_billingwala_v2/features/print/domain/bluetooth_printer_hub.d
 import 'package:pos_billingwala_v2/features/print/domain/print_providers.dart';
 import 'package:pos_billingwala_v2/features/print/domain/printer_settings.dart';
 import 'package:pos_billingwala_v2/core/widgtes/widgtes.dart';
+import 'package:pos_billingwala_v2/core/widgets/app_module_icon.dart';
 
 class MessTokenQrPage extends ConsumerWidget {
   const MessTokenQrPage({
@@ -82,9 +83,12 @@ class MessTokenQrPage extends ConsumerWidget {
         padding: const EdgeInsets.all(24),
         children: [
           AppCard(
+            accentColor: AppColors.primary,
             padding: const EdgeInsets.all(24),
             child: Column(
                 children: [
+                  const AppModuleIcon(icon: Icons.qr_code_2_rounded, color: AppColors.primary, size: 58),
+                  const SizedBox(height: 12),
                   Text(
                     subtitle,
                     textAlign: TextAlign.center,
