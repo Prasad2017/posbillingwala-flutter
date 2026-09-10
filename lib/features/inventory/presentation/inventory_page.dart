@@ -267,12 +267,6 @@ class _StockTab extends ConsumerWidget {
           subtitle: 'Live quantity and low-stock alerts',
         ),
         const SizedBox(height: 8),
-        
-          style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.w800,
-              ),
-        ),
-        const SizedBox(height: 8),
         if (balances.isEmpty)
           const AppCard(
             padding: EdgeInsets.zero,
@@ -319,12 +313,6 @@ class _StockTab extends ConsumerWidget {
         const AppSectionHeader(
           title: 'Recent movements',
           subtitle: 'Latest stock activity',
-        ),
-        const SizedBox(height: 8),
-        /*
-          style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.w800,
-              ),
         ),
         const SizedBox(height: 8),
         movementsAsync.when(
