@@ -60,7 +60,7 @@ class _SubcategoriesPageState extends ConsumerState<SubcategoriesPage> {
       context: context,
       builder: (context) => StatefulBuilder(
         builder: (context, setLocal) => AlertDialog(
-          title: const Text('Add subcategory'),
+          title: const Row(children: [AppModuleIcon(icon: Icons.account_tree_rounded, color: AppColors.teal, size: 42), SizedBox(width: 10), Text('Add subcategory')]),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -122,6 +122,7 @@ class _SubcategoriesPageState extends ConsumerState<SubcategoriesPage> {
     final ok = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(22)),
         title: const Text('Delete subcategory'),
         content: Text('Remove ${row.subcategoryName}?'),
         actions: [
