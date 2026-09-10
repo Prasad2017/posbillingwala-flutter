@@ -5,8 +5,9 @@ import 'package:pos_billingwala_v2/core/constants/app_colors.dart';
 import 'package:pos_billingwala_v2/features/mess/domain/mess_providers.dart';
 import 'package:pos_billingwala_v2/features/mess/presentation/mess_payments_page.dart';
 import 'package:pos_billingwala_v2/core/widgtes/widgtes.dart';
+import 'package:pos_billingwala_v2/core/widgets/app_module_icon.dart';
 
-/// Android-style mess member list â†’ open payment history.
+/// Android-style mess member list → open payment history.
 class MessMemberReportPage extends ConsumerWidget {
   const MessMemberReportPage({super.key});
 
@@ -41,9 +42,12 @@ class MessMemberReportPage extends ConsumerWidget {
                   ? '?'
                   : m.memberName.trim()[0].toUpperCase();
               return AppCard(
+                accentColor: i.isEven ? AppColors.teal : AppColors.purple,
             padding: EdgeInsets.zero,
             child: ListTile(
-                  leading: CircleAvatar(
+                  leading: AppModuleIcon(icon: Icons.person_rounded, color: i.isEven ? AppColors.teal : AppColors.purple, size: 48),
+                  /* legacy avatar */
+                  
                     backgroundColor: AppColors.primary.withValues(alpha: 0.12),
                     child: Text(
                       initial,
@@ -64,7 +68,7 @@ class MessMemberReportPage extends ConsumerWidget {
                       if (m.memberType.trim().isNotEmpty) m.memberType,
                       if ((m.registrationNo ?? '').trim().isNotEmpty)
                         m.registrationNo!,
-                    ].join(' Â· '),
+                    ].join(' • '),
                   ),
                   trailing: const Icon(Icons.chevron_right_rounded),
                   onTap: () {
