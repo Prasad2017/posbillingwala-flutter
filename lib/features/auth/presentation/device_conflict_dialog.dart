@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pos_billingwala_v2/core/widgtes/widgtes.dart';
+import 'package:pos_billingwala_v2/core/constants/app_colors.dart';
+import 'package:pos_billingwala_v2/core/widgets/app_module_icon.dart';
 import 'package:pos_billingwala_v2/features/auth/data/auth_repository.dart';
 
 Future<DeviceConflictAction> showDeviceConflictDialog(
@@ -12,8 +14,8 @@ Future<DeviceConflictAction> showDeviceConflictDialog(
     builder: (context) {
       return AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-        title: const Row(children: [Icon(Icons.devices_other_rounded, color: Colors.red), SizedBox(width: 10), Expanded(child: Text('Device already registered'))]),
-        content: Text(message),
+        title: const Row(children: [AppModuleIcon(icon: Icons.devices_other_rounded, color: AppColors.red, size: 46), SizedBox(width: 10), Expanded(child: Text('Device already registered'))]),
+        content: AppCard(accentColor: AppColors.red, child: Text(message)),
         actions: [
           TextButton(
             onPressed: () =>
