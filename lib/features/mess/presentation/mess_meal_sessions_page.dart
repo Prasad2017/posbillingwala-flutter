@@ -5,6 +5,7 @@ import 'package:pos_billingwala_v2/features/auth/domain/auth_controller.dart';
 import 'package:pos_billingwala_v2/features/mess/data/mess_api.dart';
 import 'package:pos_billingwala_v2/features/mess/domain/mess_dtos.dart';
 import 'package:pos_billingwala_v2/core/widgtes/widgtes.dart';
+import 'package:pos_billingwala_v2/core/widgets/app_module_icon.dart';
 
 class MessMealSessionsPage extends ConsumerStatefulWidget {
   const MessMealSessionsPage({super.key});
@@ -13,6 +14,8 @@ class MessMealSessionsPage extends ConsumerStatefulWidget {
   ConsumerState<MessMealSessionsPage> createState() =>
       _MessMealSessionsPageState();
 }
+
+Color _sessionColor(int index) => [AppColors.orange, AppColors.purple, AppColors.teal, AppColors.primary][index % 4];
 
 class _MessMealSessionsPageState extends ConsumerState<MessMealSessionsPage> {
   AsyncValue<List<MessMealSessionDto>> _sessions = const AsyncLoading();
@@ -202,7 +205,9 @@ class _MessMealSessionsPageState extends ConsumerState<MessMealSessionsPage> {
             separatorBuilder: (_, _) => const SizedBox(height: 8),
             itemBuilder: (context, index) {
               final s = rows[index];
-              return AppCard(
+              final color = _sessionColor(index);
+          return AppCard(
+            accentColor: color,
             padding: EdgeInsets.zero,
             child: ListTile(
                   leading: CircleAvatar(
@@ -220,8 +225,8 @@ class _MessMealSessionsPageState extends ConsumerState<MessMealSessionsPage> {
                   ),
                   subtitle: Text(
                     '${s.startTime} â€“ ${s.endTime}'
-                    '${s.tokenPrefix.isNotEmpty ? ' Â· ${s.tokenPrefix}' : ''}'
-                    '${s.active ? '' : ' Â· Inactive'}',
+                    '${s.tokenPrefix.isNotEmpty ? ' • ${s.tokenPrefix}' : ''}'
+                    '${s.active ? '' : ' • Inactive'}',
                   ),
                   trailing: const Icon(Icons.edit_outlined),
                   onTap: () => _edit(s),
