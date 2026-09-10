@@ -10,6 +10,7 @@ import 'package:pos_billingwala_v2/features/mess/data/mess_api.dart';
 import 'package:pos_billingwala_v2/features/mess/domain/mess_dtos.dart';
 import 'package:pos_billingwala_v2/features/mess/domain/mess_providers.dart';
 import 'package:pos_billingwala_v2/core/widgtes/widgtes.dart';
+import 'package:pos_billingwala_v2/core/widgets/app_module_icon.dart';
 
 class MessPaymentsPage extends ConsumerStatefulWidget {
   const MessPaymentsPage({super.key, this.member});
@@ -256,13 +257,13 @@ class _MessPaymentsPageState extends ConsumerState<MessPaymentsPage> {
 
   @override
   Widget build(BuildContext context) {
-    final currency = NumberFormat.currency(locale: 'en_IN', symbol: 'â‚¹');
+    final currency = NumberFormat.currency(locale: 'en_IN', symbol: '₹');
     return Scaffold(
       appBar: AppBar(
         title: Text(
           widget.member == null
               ? 'Mess Payments'
-              : '${widget.member!.memberName} Â· Payments',
+              : '${widget.member!.memberName} • Payments',
         ),
         actions: [
           IconButton(
@@ -287,7 +288,9 @@ class _MessPaymentsPageState extends ConsumerState<MessPaymentsPage> {
             separatorBuilder: (_, _) => const SizedBox(height: 8),
             itemBuilder: (context, index) {
               final p = rows[index];
-              return AppCard(
+              final color = index.isEven ? AppColors.green : AppColors.orange;
+          return AppCard(
+            accentColor: color,
             padding: EdgeInsets.zero,
             child: ListTile(
                   leading: const CircleAvatar(
@@ -299,7 +302,7 @@ class _MessPaymentsPageState extends ConsumerState<MessPaymentsPage> {
                     style: const TextStyle(fontWeight: FontWeight.w700),
                   ),
                   subtitle: Text(
-                    '${p.paymentDate} Â· ${p.messTotalDays} days Â· '
+                    '${p.paymentDate} • ${p.messTotalDays} days • '
                     'Mess ${currency.format(p.paymentMessAmount)}',
                   ),
                   trailing: Text(
