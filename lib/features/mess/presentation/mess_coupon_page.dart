@@ -128,6 +128,8 @@ class _MessCouponPageState extends ConsumerState<MessCouponPage> {
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
+            const AppModuleIcon(icon: Icons.confirmation_number_rounded, color: AppColors.orange, size: 62),
+            const SizedBox(height: 10),
           AppCard(
             accentColor: AppColors.teal,
             padding: EdgeInsets.zero,
