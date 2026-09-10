@@ -10,7 +10,6 @@ import 'package:pos_billingwala_v2/features/reports/domain/reports_providers.dar
 import 'package:pos_billingwala_v2/features/reports/presentation/invoice_detail_page.dart';
 import 'package:pos_billingwala_v2/core/widgtes/widgtes.dart';
 import 'package:pos_billingwala_v2/core/widgets/app_module_icon.dart';
-import 'package:pos_billingwala_v2/core/widgets/app_module_icon.dart';
 
 /// Android-style Take Away parcel counter: list + New Parcel.
 class TakeawayPage extends ConsumerStatefulWidget {
@@ -27,7 +26,8 @@ class _TakeawayPageState extends ConsumerState<TakeawayPage> {
     final ok = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('New parcel'),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+        title: const Row(children: [AppModuleIcon(icon: Icons.takeout_dining_rounded, color: AppColors.orange, size: 46), SizedBox(width: 10), Text('New parcel')]),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -124,7 +124,7 @@ class _TakeawayPageState extends ConsumerState<TakeawayPage> {
     final timeFmt = DateFormat('hh:mm a');
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF7F9FC),
+      backgroundColor: AppColors.surface,
       appBar: AppBar(
         title: const Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -140,13 +140,17 @@ class _TakeawayPageState extends ConsumerState<TakeawayPage> {
             ),
           ],
         ),
-      ),
+      )),
+      ]),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => _startNewParcel(),
         icon: const Icon(Icons.add),
         label: const Text('New Parcel'),
       ),
-      body: todayInvoices.when(
+      body: Column(children: [
+        Container(margin: const EdgeInsets.fromLTRB(16, 10, 16, 0), padding: const EdgeInsets.all(14), decoration: BoxDecoration(gradient: const LinearGradient(colors: [AppColors.orange, AppColors.red]), borderRadius: BorderRadius.circular(22)), child: const Row(children: [AppModuleIcon(icon: Icons.takeout_dining_rounded, color: Colors.white, size: 50), SizedBox(width: 12), Expanded(child: Text('Fast parcel billing & order tracking', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w900)))])),
+        const SizedBox(height: 8),
+        Expanded(child: todayInvoices.when(
         data: (all) {
           final parcels = all
               .where((e) => e.invoiceType == 'take_away')
