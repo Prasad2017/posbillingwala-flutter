@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-/// POS2 BillingWala brand palette extracted from the official logo.
-/// Blue is the primary identity; orange/red are energetic accent colors.
+/// Official POS2 BillingWala palette derived from the supplied logo.
 class AppColors {
   AppColors._();
 
@@ -15,19 +14,16 @@ class AppColors {
   static const Color orangeDark = Color(0xFFFF5A00);
   static const Color yellow = Color(0xFFFFC400);
   static const Color red = Color(0xFFF52B3A);
+  static const Color green = Color(0xFF16A36A);
+  static const Color teal = Color(0xFF08A6A6);
+  static const Color purple = Color(0xFF7C4DFF);
 
   static const Color surface = Color(0xFFF7F9FC);
-  static const Color success = Color(0xFF16A36A);
+  static const Color success = green;
   static const Color warning = orange;
   static const Color danger = red;
 
-  static const List<Color> brandGradient = [
-    primary,
-    primaryDark,
-  ];
-
-  static const List<Color> warmGradient = [
-    orange,
-    red,
-  ];
+  static const List<Color> brandGradient = [primary, primaryDark];
+  static const List<Color> warmGradient = [orange, red];
+  static const List<Color> analyticsGradient = [purple, primary];
 }
