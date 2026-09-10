@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:pos_billingwala_v2/core/constants/app_colors.dart';
@@ -76,6 +76,7 @@ class SyncPage extends ConsumerWidget {
       ),
       body: Column(
         children: [
+          Container(margin: const EdgeInsets.fromLTRB(16, 10, 16, 0), padding: const EdgeInsets.all(14), decoration: BoxDecoration(gradient: const LinearGradient(colors: [AppColors.primary, AppColors.teal]), borderRadius: BorderRadius.circular(22)), child: const Row(children: [AppModuleIcon(icon: Icons.cloud_sync_rounded, color: Colors.white, size: 50), SizedBox(width: 12), Expanded(child: Text('Keep your billing data safely in sync', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w900)))])),
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
             child: AppCard(
