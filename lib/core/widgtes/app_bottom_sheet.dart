@@ -12,8 +12,10 @@ Future<T?> showAppBottomSheet<T>({
   return showModalBottomSheet<T>(
     context: context,
     isScrollControlled: true,
+    backgroundColor: Colors.white,
+    showDragHandle: true,
     shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
     ),
     builder: (ctx) => Padding(
       padding: EdgeInsets.fromLTRB(
@@ -27,21 +29,10 @@ Future<T?> showAppBottomSheet<T>({
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Center(
-              child: Container(
-                width: 40,
-                height: 4,
-                decoration: BoxDecoration(
-                  color: ctx.borderColor,
-                  borderRadius: BorderRadius.circular(2),
-                ),
-              ),
-            ),
-            const SizedBox(height: 16),
             Row(
               children: [
                 if (icon != null) ...[
-                  Icon(icon, color: ctx.primary),
+                  Container(padding: const EdgeInsets.all(10), decoration: BoxDecoration(color: ctx.primary.withValues(alpha: .10), borderRadius: BorderRadius.circular(14)), child: Icon(icon, color: ctx.primary)),
                   const SizedBox(width: 10),
                 ],
                 Expanded(
