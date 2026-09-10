@@ -89,7 +89,9 @@ class _SplitBillPageState extends ConsumerState<SplitBillPage> {
 
     return Scaffold(
       appBar: AppBar(title: Text('Split Bill • T${widget.tableNumber}')),
-      body: cartAsync.when(
+      body: Column(children: [
+        Container(margin: const EdgeInsets.fromLTRB(16, 10, 16, 0), padding: const EdgeInsets.all(14), decoration: BoxDecoration(color: AppColors.purple.withValues(alpha: .08), borderRadius: BorderRadius.circular(20)), child: const Row(children: [AppModuleIcon(icon: Icons.call_split_rounded, color: AppColors.purple, size: 48), SizedBox(width: 12), Expanded(child: Text('Split the table bill your way', style: TextStyle(fontWeight: FontWeight.w900, color: AppColors.navy)))])),
+        Expanded(child: cartAsync.when(
         data: (all) {
           final items =
               all.where((e) => e.cartScope == widget.tableNumber).toList();
@@ -142,7 +144,8 @@ class _SplitBillPageState extends ConsumerState<SplitBillPage> {
         },
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (e, _) => Center(child: Text('$e')),
-      ),
+      )),
+      ]),
     );
   }
 
