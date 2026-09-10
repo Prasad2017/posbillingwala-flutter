@@ -7,6 +7,7 @@ import 'package:pos_billingwala_v2/core/database/app_database.dart';
 import 'package:pos_billingwala_v2/features/pos/domain/kot_providers.dart';
 import 'package:pos_billingwala_v2/features/print/domain/print_providers.dart';
 import 'package:pos_billingwala_v2/core/widgtes/widgtes.dart';
+import 'package:pos_billingwala_v2/core/widgets/app_module_icon.dart';
 
 /// On-screen KOT ticket (Bluetooth thermal print via ESC/POS when MAC set).
 class KotPreviewPage extends ConsumerWidget {
@@ -54,10 +55,13 @@ class KotPreviewPage extends ConsumerWidget {
         padding: const EdgeInsets.all(20),
         children: [
           AppCard(
+            accentColor: AppColors.orange,
             padding: const EdgeInsets.all(20),
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
+                  const AppModuleIcon(icon: Icons.receipt_long_rounded, color: AppColors.orange, size: 58),
+                  const SizedBox(height: 10),
                   Text(
                     'KOT',
                     textAlign: TextAlign.center,
