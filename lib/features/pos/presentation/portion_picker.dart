@@ -30,14 +30,14 @@ Future<void> addProductWithPortionPicker(
     child: Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        const AppModuleIcon(icon: Icons.restaurant_menu_rounded, color: Colors.orange, size: 58),
+        const AppModuleIcon(icon: Icons.restaurant_menu_rounded, color: AppColors.orange, size: 58),
         const SizedBox(height: 10),
         const Align(
           alignment: Alignment.centerLeft,
           child: Text('Choose portion'),
         ),
         const SizedBox(height: 8),
-        AppCard(accentColor: Colors.orange, padding: EdgeInsets.zero, child: ListTile(
+        AppCard(accentColor: AppColors.orange, padding: EdgeInsets.zero, child: ListTile(
           contentPadding: const EdgeInsets.symmetric(horizontal: 12),
           title: const Text('Regular'),
           subtitle: Text(currency.format(product.productPrice)),
@@ -45,7 +45,7 @@ Future<void> addProductWithPortionPicker(
         )),
         const SizedBox(height: 8),
         for (final p in portions)
-          AppCard(accentColor: Colors.purple, padding: EdgeInsets.zero, child: ListTile(
+          AppCard(accentColor: AppColors.purple, padding: EdgeInsets.zero, child: ListTile(
             contentPadding: const EdgeInsets.symmetric(horizontal: 12),
             title: Text(
               p.portionName.trim().isEmpty ? 'Portion' : p.portionName,
