@@ -84,6 +84,7 @@ class _NotificationsPageState extends ConsumerState<NotificationsPage> {
             const SizedBox(height: 8),
             ..._messTokens.take(20).map(
                   (t) => AppCard(
+            accentColor: AppColors.orange,
             color: AppColors.warning.withValues(alpha: 0.12),
             padding: EdgeInsets.zero,
             child: ListTile(
@@ -119,7 +120,7 @@ class _NotificationsPageState extends ConsumerState<NotificationsPage> {
             const AppCard(
             padding: EdgeInsets.zero,
             child: ListTile(
-                leading: Icon(Icons.notifications_none_rounded),
+                leading: AppModuleIcon(icon: Icons.notifications_none_rounded, color: AppColors.primary, size: 46),
                 title: Text('No alerts yet'),
                 subtitle: Text('Licence and promo pushes appear here.'),
               ),
