@@ -94,6 +94,7 @@ class _MessPageState extends ConsumerState<MessPage>
       ),
       body: Column(
         children: [
+          Container(margin: const EdgeInsets.fromLTRB(16, 12, 16, 0), padding: const EdgeInsets.all(14), decoration: BoxDecoration(gradient: const LinearGradient(colors: [AppColors.teal, AppColors.primary]), borderRadius: BorderRadius.circular(22)), child: const Row(children: [AppModuleIcon(icon: Icons.restaurant_rounded, color: Colors.white, size: 50), SizedBox(width: 12), Expanded(child: Text('Mess management center', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 17)))])),
           Material(
             color: Colors.white,
             child: SingleChildScrollView(
