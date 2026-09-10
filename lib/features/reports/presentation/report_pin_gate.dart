@@ -2,6 +2,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pos_billingwala_v2/core/widgtes/widgtes.dart';
+import 'package:pos_billingwala_v2/core/widgets/app_module_icon.dart';
 import 'package:pos_billingwala_v2/features/auth/domain/auth_controller.dart';
 
 /// Android `report_password_dialog` — unlock Reports.
@@ -20,7 +21,9 @@ Future<bool> showReportPinGate(BuildContext context, WidgetRef ref) async {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const Text('This protects sales and invoice reports.'),
+          const Center(child: AppModuleIcon(icon: Icons.lock_rounded, color: AppColors.primary, size: 68)),
+          const SizedBox(height: 12),
+          const Text('This protects sales and invoice reports.', textAlign: TextAlign.center),
           const SizedBox(height: 16),
           AppTextField(
             controller: controller,
