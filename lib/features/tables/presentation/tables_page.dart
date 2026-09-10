@@ -7,6 +7,7 @@ import 'package:pos_billingwala_v2/core/database/app_database.dart';
 import 'package:pos_billingwala_v2/core/database/database_provider.dart';
 import 'package:pos_billingwala_v2/features/tables/domain/tables_providers.dart';
 import 'package:pos_billingwala_v2/core/widgtes/widgtes.dart';
+import 'package:pos_billingwala_v2/core/widgets/app_module_icon.dart';
 
 class TablesPage extends ConsumerWidget {
   const TablesPage({super.key});
@@ -15,7 +16,7 @@ class TablesPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final floor = ref.watch(floorTablesProvider);
     final syncState = ref.watch(tablesControllerProvider);
-    final currency = NumberFormat.currency(locale: 'en_IN', symbol: 'â‚¹');
+    final currency = NumberFormat.currency(locale: 'en_IN', symbol: '₹');
     final isSyncing = syncState.isLoading;
 
     ref.listen(tablesControllerProvider, (prev, next) {
@@ -64,6 +65,7 @@ class TablesPage extends ConsumerWidget {
       ),
       body: Column(
         children: [
+          Padding(padding: const EdgeInsets.fromLTRB(16, 12, 16, 0), child: Container(padding: const EdgeInsets.all(14), decoration: BoxDecoration(color: AppColors.primary.withValues(alpha: .08), borderRadius: BorderRadius.circular(20)), child: const Row(children: [AppModuleIcon(icon: Icons.table_restaurant_rounded, color: AppColors.primary, size: 48), SizedBox(width: 12), Text('Manage your dine-in tables', style: TextStyle(fontWeight: FontWeight.w900, color: AppColors.navy))]))),
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
             child: Row(
@@ -87,7 +89,7 @@ class TablesPage extends ConsumerWidget {
                           .read(tablesControllerProvider.notifier)
                           .syncTables(),
                   icon: const Icon(Icons.sync_rounded, size: 18),
-                  label: Text(isSyncing ? 'Syncingâ€¦' : 'Sync'),
+                  label: Text(isSyncing ? 'Syncing…' : 'Sync'),
                 ),
               ],
             ),
@@ -103,7 +105,7 @@ class TablesPage extends ConsumerWidget {
                           Icon(
                             Icons.table_restaurant_outlined,
                             size: 56,
-                            color: Theme.of(context).colorScheme.primary,
+                            color: AppColors.primary,
                           ),
                           const SizedBox(height: 12),
                           Text(
