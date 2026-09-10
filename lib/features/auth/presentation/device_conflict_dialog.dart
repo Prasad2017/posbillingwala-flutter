@@ -11,7 +11,8 @@ Future<DeviceConflictAction> showDeviceConflictDialog(
     barrierDismissible: false,
     builder: (context) {
       return AlertDialog(
-        title: const Text('Device already registered'),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+        title: const Row(children: [Icon(Icons.devices_other_rounded, color: Colors.red), SizedBox(width: 10), Expanded(child: Text('Device already registered'))]),
         content: Text(message),
         actions: [
           TextButton(
