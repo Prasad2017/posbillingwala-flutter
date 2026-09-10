@@ -91,7 +91,7 @@ class _PosPageState extends ConsumerState<PosPage> {
     final cartSummary = ref.watch(cartSummaryProvider);
     final selectedCategoryId = ref.watch(posSelectedCategoryIdProvider);
     final selectedSubcategoryId = ref.watch(posSelectedSubcategoryIdProvider);
-    final currency = NumberFormat.currency(locale: 'en_IN', symbol: 'Rs. ');
+    final currency = NumberFormat.currency(locale: 'en_IN', symbol: '₹');
     final width = MediaQuery.sizeOf(context).width;
     final showSideCart = width >= 1000;
 
@@ -104,6 +104,8 @@ class _PosPageState extends ConsumerState<PosPage> {
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const AppModuleIcon(icon: Icons.point_of_sale_rounded, color: AppColors.primary, size: 44),
+            const SizedBox(width: 8),
             Text(session.title),
             if (session.tableNumber != null)
               Text(
@@ -346,7 +348,7 @@ class _CatalogPane extends ConsumerWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   IconButton(
-                    tooltip: listening ? 'Listeningâ€¦' : 'Voice search',
+                    tooltip: listening ? 'Listening…' : 'Voice search',
                     onPressed: onVoiceSearch,
                     icon: Icon(
                       listening ? Icons.mic : Icons.mic_none_rounded,
