@@ -4,6 +4,7 @@ import 'package:pos_billingwala_v2/core/constants/app_colors.dart';
 import 'package:pos_billingwala_v2/features/auth/domain/auth_controller.dart';
 import 'package:pos_billingwala_v2/features/masters/domain/masters_providers.dart';
 import 'package:pos_billingwala_v2/core/widgtes/widgtes.dart';
+import 'package:pos_billingwala_v2/core/widgets/app_module_icon.dart';
 
 class PortionMastersPage extends ConsumerStatefulWidget {
   const PortionMastersPage({super.key});
@@ -39,7 +40,7 @@ class _PortionMastersPageState extends ConsumerState<PortionMastersPage> {
         title: const Text('Add portion master'),
         content: AppTextField(
                       controller: name,
-                      label: 'Portion name (Half, Fullâ€¦)',
+                      label: 'Portion name (Half, Full…)',
                     ),
         actions: [
           TextButton(
@@ -98,8 +99,17 @@ class _PortionMastersPageState extends ConsumerState<PortionMastersPage> {
       body: list.when(
         data: (rows) {
           if (rows.isEmpty) {
-            return const Center(
-              child: Text('No portion masters yet. Add Half / Full etc.'),
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const AppModuleIcon(icon: Icons.straighten_rounded, color: AppColors.purple, size: 72),
+                  const SizedBox(height: 14),
+                  const Text('No portion masters yet', style: TextStyle(fontWeight: FontWeight.w900, fontSize: 17)),
+                  const SizedBox(height: 6),
+                  Text('Add Half, Full and other serving sizes.', style: TextStyle(color: AppColors.navy.withValues(alpha: .55))),
+                ],
+              ),
             );
           }
           return ListView.separated(
@@ -109,18 +119,19 @@ class _PortionMastersPageState extends ConsumerState<PortionMastersPage> {
             itemBuilder: (context, i) {
               final row = rows[i];
               final pending = row.portionMasterSyncStatus == '0';
+              final color = pending ? AppColors.orange : (i.isEven ? AppColors.purple : AppColors.teal);
               return AppCard(
-            padding: EdgeInsets.zero,
-            child: ListTile(
-                  leading: CircleAvatar(
-                    backgroundColor: AppColors.primary.withValues(alpha: 0.12),
-                    child: const Icon(
-                      Icons.straighten_rounded,
-                      color: AppColors.primary,
-                    ),
+                accentColor: color,
+                padding: EdgeInsets.zero,
+                child: ListTile(
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                  leading: AppModuleIcon(
+                    icon: Icons.straighten_rounded,
+                    color: color,
+                    size: 50,
                   ),
-                  title: Text(row.portionName),
-                  subtitle: Text(pending ? 'Pending sync' : 'Synced'),
+                  title: Text(row.portionName, style: const TextStyle(fontWeight: FontWeight.w800)),
+                  subtitle: Text(pending ? 'Pending sync' : 'Synced', style: TextStyle(color: color, fontWeight: FontWeight.w700)),
                   trailing: IconButton(
                     tooltip: 'Delete',
                     onPressed: _busy
