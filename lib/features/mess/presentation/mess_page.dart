@@ -5,6 +5,7 @@ import 'package:gal/gal.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:pos_billingwala_v2/core/constants/app_colors.dart';
+import 'package:pos_billingwala_v2/core/widgets/app_module_icon.dart';
 import 'package:pos_billingwala_v2/core/database/app_database.dart';
 import 'package:pos_billingwala_v2/features/mess/domain/mess_providers.dart';
 import 'package:pos_billingwala_v2/features/mess/presentation/mess_coupon_page.dart';
@@ -293,11 +294,15 @@ class _MessHubChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const colors = [AppColors.primary, AppColors.orange, AppColors.green, AppColors.purple, AppColors.red, AppColors.teal];
+    final color = colors[icon.codePoint % colors.length];
     return Padding(
       padding: const EdgeInsets.only(right: 8),
       child: ActionChip(
-        avatar: Icon(icon, size: 18, color: AppColors.primary),
-        label: Text(label),
+        avatar: Icon(icon, size: 18, color: color),
+        label: Text(label, style: const TextStyle(fontWeight: FontWeight.w700)),
+        backgroundColor: color.withValues(alpha: .09),
+        side: BorderSide(color: color.withValues(alpha: .15)),
         onPressed: onTap,
       ),
     );
@@ -367,17 +372,12 @@ class _MembersTab extends ConsumerWidget {
             return AppCard(
             padding: EdgeInsets.zero,
             child: ListTile(
-                leading: CircleAvatar(
-                  backgroundColor: AppColors.primaryLight,
-                  child: Text(
-                    member.memberName.isEmpty
-                        ? '?'
-                        : member.memberName[0].toUpperCase(),
-                    style: const TextStyle(
-                      color: AppColors.primary,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
+                leading: AppModuleIcon(
+                  icon: Icons.person_rounded,
+                  color: member.memberType.toLowerCase().contains('staff')
+                      ? AppColors.purple
+                      : AppColors.teal,
+                  size: 48,
                 ),
                 title: Text(
                   member.memberName,
@@ -390,7 +390,7 @@ class _MembersTab extends ConsumerWidget {
                     if (member.memberMobileNumber?.isNotEmpty == true)
                       member.memberMobileNumber!,
                     member.memberType,
-                  ].join(' Â· '),
+                  ].join(' • '),
                 ),
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,
