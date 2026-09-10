@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:pos_billingwala_v2/core/constants/app_colors.dart';
 import 'package:pos_billingwala_v2/core/constants/app_constants.dart';
 import 'package:pos_billingwala_v2/core/widgtes/widgtes.dart';
+import 'package:pos_billingwala_v2/core/widgets/app_module_icon.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -78,14 +79,11 @@ class ShareAppPage extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         children: [
           AppCard(
+            accentColor: AppColors.purple,
             padding: const EdgeInsets.all(24),
             child: Column(
               children: [
-                const Icon(
-                  Icons.share_rounded,
-                  size: 48,
-                  color: AppColors.primary,
-                ),
+                const AppModuleIcon(icon: Icons.share_rounded, color: AppColors.purple, size: 76),
                 const SizedBox(height: 16),
                 Text(
                   'Share ${AppConstants.appName}',
