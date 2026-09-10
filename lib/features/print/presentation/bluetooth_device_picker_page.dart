@@ -3,6 +3,8 @@ import 'package:print_bluetooth_thermal/print_bluetooth_thermal.dart';
 import 'package:pos_billingwala_v2/core/permissions/app_permission_service.dart';
 import 'package:pos_billingwala_v2/features/print/domain/bluetooth_printer_hub.dart';
 import 'package:pos_billingwala_v2/core/widgtes/widgtes.dart';
+import 'package:pos_billingwala_v2/core/constants/app_colors.dart';
+import 'package:pos_billingwala_v2/core/widgets/app_module_icon.dart';
 
 /// Paired Bluetooth device list â€” same role as Android [DeviceListActivity].
 class BluetoothDevicePickerPage extends StatefulWidget {
@@ -119,6 +121,8 @@ class _BluetoothDevicePickerPageState extends State<BluetoothDevicePickerPage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      const AppModuleIcon(icon: Icons.print_disabled_rounded, color: AppColors.orange, size: 72),
+                      const SizedBox(height: 12),
                       Text(_error!, textAlign: TextAlign.center),
                       const SizedBox(height: 16),
                       AppButton(
@@ -140,7 +144,7 @@ class _BluetoothDevicePickerPageState extends State<BluetoothDevicePickerPage> {
                   itemBuilder: (context, index) {
                     final d = _devices[index];
                     return ListTile(
-                      leading: const Icon(Icons.print_rounded),
+                      leading: const AppModuleIcon(icon: Icons.print_rounded, color: AppColors.primary, size: 48),
                       title: Text(
                         d.name.isEmpty ? 'Unknown printer' : d.name,
                       ),
