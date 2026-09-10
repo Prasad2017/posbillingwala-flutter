@@ -609,7 +609,6 @@ Color _paymentColor(PaymentMode mode) {
   switch (mode) {
     case PaymentMode.cash: return AppColors.green;
     case PaymentMode.upi: return AppColors.primary;
-    case PaymentMode.card: return AppColors.purple;
     case PaymentMode.cashPlusUpi: return AppColors.orange;
   }
 }
@@ -618,7 +617,6 @@ IconData _paymentIcon(PaymentMode mode) {
   switch (mode) {
     case PaymentMode.cash: return Icons.payments_rounded;
     case PaymentMode.upi: return Icons.qr_code_2_rounded;
-    case PaymentMode.card: return Icons.credit_card_rounded;
     case PaymentMode.cashPlusUpi: return Icons.account_balance_wallet_rounded;
   }
 }
