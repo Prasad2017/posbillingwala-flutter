@@ -18,7 +18,7 @@ class ReportsPage extends ConsumerWidget {
     final invoicesAsync = ref.watch(periodInvoicesProvider);
     final filtered = ref.watch(filteredPeriodInvoicesProvider);
     final summary = ref.watch(periodSalesSummaryProvider);
-    final currency = NumberFormat.currency(locale: 'en_IN', symbol: 'â‚¹');
+    final currency = NumberFormat.currency(locale: 'en_IN', symbol: '₹');
     final timeFormat = DateFormat('dd MMM, hh:mm a');
 
     return Scaffold(
@@ -31,7 +31,7 @@ class ReportsPage extends ConsumerWidget {
                 ? null
                 : () => shareInvoicesCsv(
                       invoices: filtered,
-                      title: 'Invoices â€” ${period.label}',
+                      title: 'Invoices — ${period.label}',
                     ),
             icon: const Icon(Icons.ios_share_rounded),
           ),
