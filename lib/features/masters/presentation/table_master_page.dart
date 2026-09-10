@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pos_billingwala_v2/core/constants/app_colors.dart';
 import 'package:pos_billingwala_v2/features/auth/domain/auth_controller.dart';
@@ -54,7 +54,8 @@ class _TableMasterPageState extends ConsumerState<TableMasterPage>
     final ok = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Add dining area'),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(22)),
+        title: const Row(children: [AppModuleIcon(icon: Icons.restaurant_rounded, color: AppColors.primary, size: 42), SizedBox(width: 10), Text('Add dining area')]),
         content: AppTextField(
                       controller: name,
                       label: 'Area name',
