@@ -110,6 +110,7 @@ class _MessTokenScanPageState extends ConsumerState<MessTokenScanPage> {
               ),
             ),
           ),
+          Positioned(top: 24, left: 24, right: 24, child: Container(padding: const EdgeInsets.all(14), decoration: BoxDecoration(color: AppColors.navy.withValues(alpha: .82), borderRadius: BorderRadius.circular(20)), child: const Row(children: [AppModuleIcon(icon: Icons.qr_code_scanner_rounded, color: AppColors.teal, size: 46), SizedBox(width: 12), Expanded(child: Text('Scan mess meal token', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w900)))]))),
           if (_busy)
             const Center(
               child: CircularProgressIndicator(color: AppColors.primary),
