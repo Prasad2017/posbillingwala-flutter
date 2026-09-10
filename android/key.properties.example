@@ -1,0 +1,11 @@
+# Same keystore as repo-root build-release.sh / native WithTable.
+# Copy to key.properties (gitignored) — values below match the shared release key.
+#
+# Keystore:  ../../PosBillingwala.jks  (repo root)
+# Alias:     posbillingwala
+# Password:  PosBillingwala  (override with STORE_PASSWORD / KEY_PASSWORD in build-release.sh)
+
+storePassword=PosBillingwala
+keyPassword=PosBillingwala
+keyAlias=posbillingwala
+storeFile=../../PosBillingwala.jks

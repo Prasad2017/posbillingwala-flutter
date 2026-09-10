@@ -1,0 +1,122 @@
+{
+  "project_info": {
+    "project_number": "855823167459",
+    "project_id": "pos-billingwala",
+    "storage_bucket": "pos-billingwala.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:855823167459:android:95e5696bdeea03936c7ad6",
+        "android_client_info": {
+          "package_name": "com.pos_billingwala"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "855823167459-op7jngqhsh59svgiggv4tn2smf8s45re.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pos_billingwala",
+            "certificate_hash": "680c897d9c7eda6b29ccd0fe605e98ae2c1f656e"
+          }
+        },
+        {
+          "client_id": "855823167459-9fl7mm2vhkfdp418e3rhdq8i7lvjd1nc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCsqCFtIhkgR7Z130YY6YNidXFlBgykw8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "855823167459-9fl7mm2vhkfdp418e3rhdq8i7lvjd1nc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      },
+      "admob_app_id": "ca-app-pub-2325627373654257~2682249830"
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:855823167459:android:b045ddf4c7cd21366c7ad6",
+        "android_client_info": {
+          "package_name": "com.posbillingwala.dealer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "855823167459-o282eh5d0l4jpnq8up2vllaf4o7fm9ij.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.posbillingwala.dealer",
+            "certificate_hash": "680c897d9c7eda6b29ccd0fe605e98ae2c1f656e"
+          }
+        },
+        {
+          "client_id": "855823167459-9fl7mm2vhkfdp418e3rhdq8i7lvjd1nc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCsqCFtIhkgR7Z130YY6YNidXFlBgykw8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "855823167459-9fl7mm2vhkfdp418e3rhdq8i7lvjd1nc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:855823167459:android:82f9b2f75b1ee44c6c7ad6",
+        "android_client_info": {
+          "package_name": "com.posbillingwala.owner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "855823167459-eohmoni90dtrsrvtl77kfpbb24creqdb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.posbillingwala.owner",
+            "certificate_hash": "680c897d9c7eda6b29ccd0fe605e98ae2c1f656e"
+          }
+        },
+        {
+          "client_id": "855823167459-9fl7mm2vhkfdp418e3rhdq8i7lvjd1nc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCsqCFtIhkgR7Z130YY6YNidXFlBgykw8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "855823167459-9fl7mm2vhkfdp418e3rhdq8i7lvjd1nc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
