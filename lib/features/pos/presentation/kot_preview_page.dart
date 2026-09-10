@@ -60,16 +60,16 @@ class KotPreviewPage extends ConsumerWidget {
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  const AppModuleIcon(icon: Icons.receipt_long_rounded, color: AppColors.orange, size: 58),
+                  const AppModuleIcon(icon: Icons.restaurant_menu_rounded, color: AppColors.orange, size: 58),
                   const SizedBox(height: 10),
-                  Text(
-                    'KOT',
+                  Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), decoration: BoxDecoration(color: AppColors.orange.withValues(alpha: .10), borderRadius: BorderRadius.circular(20)), child: Text(
+                    'KITCHEN ORDER',
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                           fontWeight: FontWeight.w900,
                           letterSpacing: 2,
                         ),
-                  ),
+                  )),
                   const SizedBox(height: 8),
                   Text(
                     ticket.kot.kotNumber,
