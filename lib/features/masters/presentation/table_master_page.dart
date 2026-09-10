@@ -6,6 +6,7 @@ import 'package:pos_billingwala_v2/features/masters/data/masters_api.dart';
 import 'package:pos_billingwala_v2/features/masters/domain/masters_providers.dart';
 import 'package:pos_billingwala_v2/features/tables/domain/tables_providers.dart';
 import 'package:pos_billingwala_v2/core/widgtes/widgtes.dart';
+import 'package:pos_billingwala_v2/core/widgets/app_module_icon.dart';
 
 class TableMasterPage extends ConsumerStatefulWidget {
   const TableMasterPage({super.key});
@@ -221,6 +222,10 @@ class _TableMasterPageState extends ConsumerState<TableMasterPage>
     final types = ref.watch(tableTypesProvider);
     final floor = ref.watch(floorTablesProvider);
     return Scaffold(
+      body: Column(children: [
+        Container(margin: const EdgeInsets.fromLTRB(16, 12, 16, 0), padding: const EdgeInsets.all(16), decoration: BoxDecoration(gradient: const LinearGradient(colors: [AppColors.primary, AppColors.primaryDark]), borderRadius: BorderRadius.circular(22)), child: const Row(children: [AppModuleIcon(icon: Icons.table_restaurant_rounded, color: Colors.white, size: 52), SizedBox(width: 12), Expanded(child: Text('Restaurant table setup', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 18)))])),
+        Expanded(child: _buildBody()),
+      ]),
       appBar: AppBar(
         title: const Text('Table Master'),
         bottom: TabBar(
