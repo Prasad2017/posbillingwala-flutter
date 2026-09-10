@@ -220,7 +220,8 @@ class _ProductWiseReportPageState extends ConsumerState<ProductWiseReportPage> {
             ),
           ),
         ],
-      ),
+      )),
+      ]),
     );
   }
 }
