@@ -7,6 +7,7 @@ import 'package:pos_billingwala_v2/core/database/app_database.dart';
 import 'package:pos_billingwala_v2/core/database/database_provider.dart';
 import 'package:pos_billingwala_v2/features/reports/domain/reports_providers.dart';
 import 'package:pos_billingwala_v2/core/widgtes/widgtes.dart';
+import 'package:pos_billingwala_v2/core/widgets/app_module_icon.dart';
 
 /// High-level sales dashboard: KPIs, 7-day trend, payment donut, recent bills.
 class SalesDashboardPage extends ConsumerWidget {
@@ -18,16 +19,18 @@ class SalesDashboardPage extends ConsumerWidget {
     final month = ref.watch(monthSalesSummaryProvider);
     final todayAsync = ref.watch(todayInvoicesProvider);
     final trendAsync = ref.watch(_last7DaysProvider);
-    final currency = NumberFormat.currency(locale: 'en_IN', symbol: 'â‚¹');
+    final currency = NumberFormat.currency(locale: 'en_IN', symbol: '₹');
     final timeFormat = DateFormat('hh:mm a');
     final dayLabel = DateFormat('E');
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF7F9FC),
+      backgroundColor: AppColors.surface,
       appBar: AppBar(title: const Text('Sales Overview')),
       body: ListView(
         padding: const EdgeInsets.fromLTRB(16, 12, 16, 32),
         children: [
+          const AppModuleIcon(icon: Icons.auto_graph_rounded, color: AppColors.primary, size: 58),
+          const SizedBox(height: 10),
           Row(
             children: [
               Expanded(
@@ -57,6 +60,7 @@ class SalesDashboardPage extends ConsumerWidget {
           ),
           const SizedBox(height: 8),
           AppCard(
+            accentColor: AppColors.purple,
             padding: const EdgeInsets.fromLTRB(12, 16, 12, 8),
             child: trendAsync.when(
                 data: (points) => SizedBox(
