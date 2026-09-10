@@ -7,6 +7,7 @@ import 'package:pos_billingwala_v2/core/database/database_provider.dart';
 import 'package:pos_billingwala_v2/features/reports/domain/report_export.dart';
 import 'package:pos_billingwala_v2/features/reports/domain/reports_providers.dart';
 import 'package:pos_billingwala_v2/core/widgtes/widgtes.dart';
+import 'package:pos_billingwala_v2/core/widgets/app_module_icon.dart';
 
 class ProductWiseReportPage extends ConsumerStatefulWidget {
   const ProductWiseReportPage({super.key, this.initialType = 'all'});
@@ -49,7 +50,7 @@ class _ProductWiseReportPageState extends ConsumerState<ProductWiseReportPage> {
   @override
   Widget build(BuildContext context) {
     final period = ref.watch(reportPeriodProvider);
-    final currency = NumberFormat.currency(locale: 'en_IN', symbol: 'â‚¹');
+    final currency = NumberFormat.currency(locale: 'en_IN', symbol: '₹');
 
     ref.listen(reportPeriodProvider, (_, _) => _load());
 
@@ -64,7 +65,7 @@ class _ProductWiseReportPageState extends ConsumerState<ProductWiseReportPage> {
               if (rows == null || rows.isEmpty) return;
               shareProductSalesCsv(
                 rows: rows,
-                title: 'Product-wise â€” ${period.label}',
+                title: 'Product-wise — ${period.label}',
               );
             },
             icon: const Icon(Icons.ios_share_rounded),
@@ -89,6 +90,7 @@ class _ProductWiseReportPageState extends ConsumerState<ProductWiseReportPage> {
       ),
       body: Column(
         children: [
+          Container(margin: const EdgeInsets.fromLTRB(16, 10, 16, 0), padding: const EdgeInsets.all(14), decoration: BoxDecoration(color: AppColors.purple.withValues(alpha: .08), borderRadius: BorderRadius.circular(20)), child: const Row(children: [AppModuleIcon(icon: Icons.inventory_2_rounded, color: AppColors.purple, size: 48), SizedBox(width: 12), Expanded(child: Text('Discover your best-selling items', style: TextStyle(fontWeight: FontWeight.w900, color: AppColors.navy)))])),
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
             child: SegmentedButton<ReportPeriodKind>(
@@ -155,7 +157,7 @@ class _ProductWiseReportPageState extends ConsumerState<ProductWiseReportPage> {
             padding: EdgeInsets.zero,
             child: ListTile(
                           title: Text(
-                            '${rows.length} items Â· Qty $totalQty',
+                            '${rows.length} items • Qty $totalQty',
                             style: const TextStyle(fontWeight: FontWeight.w700),
                           ),
                           trailing: Text(
@@ -196,7 +198,7 @@ class _ProductWiseReportPageState extends ConsumerState<ProductWiseReportPage> {
                               ),
                               subtitle: Text(
                                 'Qty ${row.totalQuantity}'
-                                '${row.itemType == 'combo' ? ' Â· Combo' : ''}',
+                                '${row.itemType == 'combo' ? ' • Combo' : ''}',
                               ),
                               trailing: Text(
                                 currency.format(row.totalAmount),
