@@ -144,8 +144,8 @@ class _PaymentPageState extends ConsumerState<PaymentPage> {
             },
             child: const Text('Home'),
           ),
-        ],
-      ),
+        ])),
+      ]),
     );
 
     if (autoPrint && mounted) {
@@ -209,7 +209,9 @@ class _PaymentPageState extends ConsumerState<PaymentPage> {
         child: Center(
           child: ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 560),
-            child: Column(
+            child: Column(children: [
+          Container(margin: const EdgeInsets.fromLTRB(16, 10, 16, 0), padding: const EdgeInsets.all(14), decoration: BoxDecoration(gradient: const LinearGradient(colors: [AppColors.primary, AppColors.purple]), borderRadius: BorderRadius.circular(22)), child: const Row(children: [AppModuleIcon(icon: Icons.payments_rounded, color: Colors.white, size: 50), SizedBox(width: 12), Expanded(child: Text('Choose payment and complete billing', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w900)))])),
+          Expanded(child: Column(
               children: [
                 Expanded(
                   child: ListView(
