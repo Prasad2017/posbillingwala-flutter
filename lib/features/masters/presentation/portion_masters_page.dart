@@ -37,7 +37,8 @@ class _PortionMastersPageState extends ConsumerState<PortionMastersPage> {
     final ok = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Add portion master'),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(22)),
+        title: const Row(children: [AppModuleIcon(icon: Icons.straighten_rounded, color: AppColors.purple, size: 42), SizedBox(width: 10), Text('Add portion master')]),
         content: AppTextField(
                       controller: name,
                       label: 'Portion name (Half, Full…)',
