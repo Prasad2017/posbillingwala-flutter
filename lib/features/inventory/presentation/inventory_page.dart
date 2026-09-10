@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:pos_billingwala_v2/core/constants/app_colors.dart';
+import 'package:pos_billingwala_v2/core/widgets/donut_chart.dart';
+import 'package:pos_billingwala_v2/core/widgets/app_section_header.dart';
 import 'package:pos_billingwala_v2/core/database/app_database.dart';
 import 'package:pos_billingwala_v2/features/inventory/domain/inventory_providers.dart';
 import 'package:pos_billingwala_v2/features/masters/domain/masters_providers.dart';
@@ -222,12 +224,50 @@ class _StockTab extends ConsumerWidget {
     final balances = ref.watch(stockBalancesProvider);
     final movementsAsync = ref.watch(inventoryMovementsProvider);
     final qtyFormat = NumberFormat('#0.##');
+    final lowCount = balances.where((b) => b.lowStock).length;
+    final healthyCount = balances.length - lowCount;
+    final totalQty = balances.fold<double>(0, (sum, b) => sum + b.remaining);
 
     return ListView(
       padding: const EdgeInsets.fromLTRB(16, 12, 16, 100),
       children: [
-        Text(
-          'Current stock',
+        AppCard(
+          padding: const EdgeInsets.all(18),
+          accentColor: AppColors.teal,
+          child: Row(
+            children: [
+              DonutChart(
+                values: [healthyCount.toDouble(), lowCount.toDouble()],
+                colors: const [AppColors.green, AppColors.orange],
+                centerValue: balances.length.toString(),
+                centerTitle: 'Products',
+                size: 126,
+                strokeWidth: 15,
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text('Inventory health', style: TextStyle(fontWeight: FontWeight.w900, color: AppColors.navy)),
+                    const SizedBox(height: 8),
+                    Text(qtyFormat.format(totalQty) + ' total units', style: TextStyle(color: AppColors.navy.withValues(alpha: .6))),
+                    const SizedBox(height: 8),
+                    Text(lowCount.toString() + ' low stock', style: const TextStyle(color: AppColors.orange, fontWeight: FontWeight.w800)),
+                    Text(healthyCount.toString() + ' healthy items', style: const TextStyle(color: AppColors.green, fontWeight: FontWeight.w800)),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 20),
+        const AppSectionHeader(
+          title: 'Current stock',
+          subtitle: 'Live quantity and low-stock alerts',
+        ),
+        const SizedBox(height: 8),
+        
           style: Theme.of(context).textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.w800,
               ),
@@ -276,8 +316,12 @@ class _StockTab extends ConsumerWidget {
             ),
           ),
         const SizedBox(height: 20),
-        Text(
-          'Recent movements',
+        const AppSectionHeader(
+          title: 'Recent movements',
+          subtitle: 'Latest stock activity',
+        ),
+        const SizedBox(height: 8),
+        /*
           style: Theme.of(context).textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.w800,
               ),
@@ -347,7 +391,7 @@ class _ExpensesTab extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final expensesAsync = ref.watch(expensesProvider);
     final total = ref.watch(expensesTotalProvider);
-    final currency = NumberFormat.currency(locale: 'en_IN', symbol: 'â‚¹');
+    final currency = NumberFormat.currency(locale: 'en_IN', symbol: '₹');
     final dateFmt = DateFormat('dd MMM yyyy');
 
     return Column(
@@ -358,21 +402,21 @@ class _ExpensesTab extends ConsumerWidget {
             width: double.infinity,
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: AppColors.primaryLight,
-              borderRadius: BorderRadius.circular(16),
+              gradient: const LinearGradient(colors: [AppColors.red, AppColors.orangeDark]),
+              borderRadius: BorderRadius.circular(22),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   'Total expenses',
-                  style: Theme.of(context).textTheme.labelLarge,
+                  style: Theme.of(context).textTheme.labelLarge?.copyWith(color: Colors.white70),
                 ),
                 const SizedBox(height: 4),
                 Text(
                   currency.format(total),
                   style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                        color: AppColors.primary,
+                        color: Colors.white,
                         fontWeight: FontWeight.w900,
                       ),
                 ),
