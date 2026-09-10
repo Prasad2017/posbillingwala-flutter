@@ -240,7 +240,7 @@ class _TakeawayPageState extends ConsumerState<TakeawayPage> {
                           if (invoice.customerName?.trim().isNotEmpty == true)
                             invoice.customerName!,
                           invoice.paymentMode,
-                        ].join(' Â· '),
+                        ].join(' • '),
                       ),
                       trailing: Row(
                         mainAxisSize: MainAxisSize.min,
