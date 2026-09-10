@@ -45,17 +45,10 @@ class MessMemberReportPage extends ConsumerWidget {
                 accentColor: i.isEven ? AppColors.teal : AppColors.purple,
             padding: EdgeInsets.zero,
             child: ListTile(
-                  leading: AppModuleIcon(icon: Icons.person_rounded, color: i.isEven ? AppColors.teal : AppColors.purple, size: 48),
-                  /* legacy avatar */
-                  
-                    backgroundColor: AppColors.primary.withValues(alpha: 0.12),
-                    child: Text(
-                      initial,
-                      style: const TextStyle(
-                        color: AppColors.primary,
-                        fontWeight: FontWeight.w800,
-                      ),
-                    ),
+                  leading: AppModuleIcon(
+                    icon: Icons.person_rounded,
+                    color: i.isEven ? AppColors.teal : AppColors.purple,
+                    size: 48,
                   ),
                   title: Text(
                     m.memberName,
