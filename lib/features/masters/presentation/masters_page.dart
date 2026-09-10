@@ -8,6 +8,7 @@ import 'package:pos_billingwala_v2/core/database/database_provider.dart';
 import 'package:pos_billingwala_v2/features/masters/domain/masters_providers.dart';
 import 'package:pos_billingwala_v2/features/print/domain/print_providers.dart';
 import 'package:pos_billingwala_v2/core/widgtes/widgtes.dart';
+import 'package:pos_billingwala_v2/core/widgets/app_module_icon.dart';
 
 class MastersPage extends ConsumerWidget {
   const MastersPage({super.key});
@@ -19,7 +20,7 @@ class MastersPage extends ConsumerWidget {
     final selectedCategoryId = ref.watch(selectedCategoryIdProvider);
     final syncState = ref.watch(mastersSyncControllerProvider);
     final countsAsync = ref.watch(catalogCountsProvider);
-    final currency = NumberFormat.currency(locale: 'en_IN', symbol: 'â‚¹');
+    final currency = NumberFormat.currency(locale: 'en_IN', symbol: '₹');
 
     ref.listen(mastersSyncControllerProvider, (prev, next) {
       next.whenOrNull(
@@ -43,7 +44,7 @@ class MastersPage extends ConsumerWidget {
             parts.add('Masters sync finished');
           }
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(parts.join(' Â· '))),
+            SnackBar(content: Text(parts.join(' • '))),
           );
         },
         error: (error, _) {
@@ -139,29 +140,33 @@ class MastersPage extends ConsumerWidget {
             child: countsAsync.when(
               data: (counts) => Row(
                 children: [
-                  _CountChip(
-                    label: 'Categories',
-                    value: '${counts.categories}',
+                  Expanded(
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          _CountChip(label: 'Categories', value: '${counts.categories}', icon: Icons.category_rounded, color: AppColors.purple),
+                          const SizedBox(width: 8),
+                          _CountChip(label: 'Products', value: '${counts.products}', icon: Icons.inventory_2_rounded, color: AppColors.primary),
+                          const SizedBox(width: 8),
+                          _CountChip(label: 'Combos', value: '${counts.combos}', icon: Icons.auto_awesome_rounded, color: AppColors.orange),
+                        ],
+                      ),
+                    ),
                   ),
-                  const SizedBox(width: 8),
-                  _CountChip(
-                    label: 'Products',
-                    value: '${counts.products}',
-                  ),
-                  const SizedBox(width: 8),
-                  _CountChip(
-                    label: 'Combos',
-                    value: '${counts.combos}',
-                  ),
-                  const Spacer(),
-                  TextButton.icon(
-                    onPressed: isSyncing
-                        ? null
-                        : () => ref
-                            .read(mastersSyncControllerProvider.notifier)
-                            .syncNow(),
-                    icon: const Icon(Icons.sync_rounded, size: 18),
-                    label: Text(isSyncing ? 'Syncingâ€¦' : 'Sync'),
+                  const SizedBox(width: 6),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: AppColors.primaryLight,
+                      borderRadius: BorderRadius.circular(14),
+                    ),
+                    child: IconButton(
+                      tooltip: isSyncing ? 'Syncing' : 'Sync catalog',
+                      onPressed: isSyncing ? null : () => ref.read(mastersSyncControllerProvider.notifier).syncNow(),
+                      icon: isSyncing
+                          ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2))
+                          : const Icon(Icons.sync_rounded),
+                    ),
                   ),
                 ],
               ),
@@ -175,7 +180,7 @@ class MastersPage extends ConsumerWidget {
               data: (categories) {
                 if (categories.isEmpty) {
                   return const Center(
-                    child: Text('No categories â€” tap Sync to download'),
+                    child: Text('No categories — tap Sync to download'),
                   );
                 }
                 return ListView(
@@ -374,7 +379,7 @@ Future<void> _printCatalog(BuildContext context, WidgetRef ref) async {
     }
     return;
   }
-  final currency = NumberFormat.currency(locale: 'en_IN', symbol: 'â‚¹');
+  final currency = NumberFormat.currency(locale: 'en_IN', symbol: '₹');
   final buf = StringBuffer()
     ..writeln('PRODUCT LIST')
     ..writeln(DateFormat('dd MMM yyyy HH:mm').format(DateTime.now()))
@@ -539,25 +544,41 @@ Future<void> _showAddProductDialog(BuildContext context, WidgetRef ref) async {
 }
 
 class _CountChip extends StatelessWidget {
-  const _CountChip({required this.label, required this.value});
+  const _CountChip({
+    required this.label,
+    required this.value,
+    required this.icon,
+    required this.color,
+  });
 
   final String label;
   final String value;
+  final IconData icon;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      constraints: const BoxConstraints(minWidth: 112),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
       decoration: BoxDecoration(
-        color: AppColors.primaryLight,
-        borderRadius: BorderRadius.circular(12),
+        color: color.withValues(alpha: .09),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: color.withValues(alpha: .12)),
       ),
-      child: Text(
-        '$label: $value',
-        style: Theme.of(context).textTheme.labelLarge?.copyWith(
-              color: AppColors.primary,
-              fontWeight: FontWeight.w600,
-            ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          AppModuleIcon(icon: icon, color: color, size: 36),
+          const SizedBox(width: 8),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(value, style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: AppColors.navy)),
+              Text(label, style: TextStyle(fontSize: 11, color: AppColors.navy.withValues(alpha: .58))),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -581,20 +602,15 @@ class _ProductTile extends StatelessWidget {
     final theme = Theme.of(context);
     final pending = product.productSyncStatus == '0';
     return AppCard(
-            padding: EdgeInsets.zero,
-            child: ListTile(
+      accentColor: pending ? AppColors.orange : AppColors.primary,
+      padding: EdgeInsets.zero,
+      child: ListTile(
+        contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
         onTap: onEdit,
-        leading: CircleAvatar(
-          backgroundColor: AppColors.primaryLight,
-          child: Text(
-            product.productName.isNotEmpty
-                ? product.productName[0].toUpperCase()
-                : '?',
-            style: const TextStyle(
-              color: AppColors.primary,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
+        leading: AppModuleIcon(
+          icon: Icons.shopping_bag_rounded,
+          color: pending ? AppColors.orange : AppColors.primary,
+          size: 50,
         ),
         title: Row(
           children: [
@@ -624,7 +640,7 @@ class _ProductTile extends StatelessWidget {
               'Code: ${product.productCode}',
             if (product.productCgst > 0 || product.productSgst > 0)
               'GST ${product.productCgst + product.productSgst}%',
-          ].join(' Â· '),
+          ].join(' • '),
         ),
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
@@ -633,7 +649,7 @@ class _ProductTile extends StatelessWidget {
               priceLabel,
               style: theme.textTheme.titleMedium?.copyWith(
                 color: AppColors.primary,
-                fontWeight: FontWeight.w700,
+                fontWeight: FontWeight.w900,
               ),
             ),
             PopupMenuButton<String>(
@@ -688,8 +704,15 @@ class _CombosTab extends ConsumerWidget {
                 ? combo.comboWithGstPrice
                 : combo.comboPrice;
             return AppCard(
-            padding: EdgeInsets.zero,
-            child: ListTile(
+              accentColor: index.isEven ? AppColors.purple : AppColors.orange,
+              padding: EdgeInsets.zero,
+              child: ListTile(
+                contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                leading: AppModuleIcon(
+                  icon: Icons.auto_awesome_rounded,
+                  color: index.isEven ? AppColors.purple : AppColors.orange,
+                  size: 48,
+                ),
                 onTap: () => _showEditComboDialog(context, ref, combo),
                 title: Text(
                   combo.comboName,
@@ -892,7 +915,7 @@ Future<void> _showManagePortionsDialog(
     context: context,
     builder: (context) => StatefulBuilder(
       builder: (context, setLocal) => AlertDialog(
-        title: Text('Portions Â· ${product.productName}'),
+        title: Text('Portions • ${product.productName}'),
         content: SizedBox(
           width: 360,
           child: Column(
@@ -1025,7 +1048,7 @@ Future<void> _showAddComboDialog(BuildContext context, WidgetRef ref) async {
   // All products regardless of category filter:
   final allProducts =
       await ref.read(appDatabaseProvider).watchActiveProducts().first;
-  final selected = <int, int>{}; // productId â†’ qty
+  final selected = <int, int>{}; // productId → qty
 
   if (!context.mounted) return;
   final ok = await showDialog<bool>(
@@ -1059,7 +1082,7 @@ Future<void> _showAddComboDialog(BuildContext context, WidgetRef ref) async {
                 ),
                 const SizedBox(height: 8),
                 if (allProducts.isEmpty && products.isEmpty)
-                  const Text('No products â€” sync Masters first.')
+                  const Text('No products — sync Masters first.')
                 else
                   ...((allProducts.isNotEmpty ? allProducts : products)
                       .take(40)
@@ -1201,7 +1224,7 @@ Future<void> _showEditComboDialog(
                 ),
                 const SizedBox(height: 8),
                 if (allProducts.isEmpty)
-                  const Text('No products â€” sync Masters first.')
+                  const Text('No products — sync Masters first.')
                 else
                   ...allProducts.take(40).map((p) {
                     final qty = selected[p.productId] ?? 0;
