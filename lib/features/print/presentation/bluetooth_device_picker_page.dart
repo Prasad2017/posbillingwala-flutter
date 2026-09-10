@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:print_bluetooth_thermal/print_bluetooth_thermal.dart';
 import 'package:pos_billingwala_v2/core/permissions/app_permission_service.dart';
 import 'package:pos_billingwala_v2/features/print/domain/bluetooth_printer_hub.dart';
@@ -6,7 +6,7 @@ import 'package:pos_billingwala_v2/core/widgtes/widgtes.dart';
 import 'package:pos_billingwala_v2/core/constants/app_colors.dart';
 import 'package:pos_billingwala_v2/core/widgets/app_module_icon.dart';
 
-/// Paired Bluetooth device list â€” same role as Android [DeviceListActivity].
+/// Paired Bluetooth device list — same role as Android [DeviceListActivity].
 class BluetoothDevicePickerPage extends StatefulWidget {
   const BluetoothDevicePickerPage({
     super.key,
