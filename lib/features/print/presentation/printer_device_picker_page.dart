@@ -249,6 +249,8 @@ class _PrinterDevicePickerPageState extends State<PrinterDevicePickerPage>
         ],
       ),
       body: Column(children: [
+        Container(margin: const EdgeInsets.fromLTRB(16, 10, 16, 4), padding: const EdgeInsets.all(14), decoration: BoxDecoration(color: AppColors.primary.withValues(alpha: .08), borderRadius: BorderRadius.circular(20)), child: const Row(children: [AppModuleIcon(icon: Icons.print_connect_rounded, color: AppColors.primary, size: 50), SizedBox(width: 12), Expanded(child: Text('Connect your billing printer', style: TextStyle(fontWeight: FontWeight.w900, color: AppColors.navy)))])),
+        Expanded(child: Column(children: [
         Container(margin: const EdgeInsets.fromLTRB(16, 12, 16, 0), padding: const EdgeInsets.all(14), decoration: BoxDecoration(color: AppColors.primary.withValues(alpha: .08), borderRadius: BorderRadius.circular(20)), child: const Row(children: [AppModuleIcon(icon: Icons.print_connect_rounded, color: AppColors.primary, size: 48), SizedBox(width: 12), Expanded(child: Text('Connect your billing printer', style: TextStyle(fontWeight: FontWeight.w900, color: AppColors.navy)))])),
         Expanded(child: TabBarView(
         controller: _tabs,
