@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pos_billingwala_v2/core/widgtes/widgtes.dart';
+import 'package:pos_billingwala_v2/core/constants/app_colors.dart';
+import 'package:pos_billingwala_v2/core/widgets/brand_logo.dart';
+import 'package:pos_billingwala_v2/core/widgets/app_module_icon.dart';
 import 'package:pos_billingwala_v2/features/auth/domain/auth_controller.dart';
 
 class RegisterPage extends ConsumerStatefulWidget {
@@ -97,6 +100,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Sign up for trial')),
+      backgroundColor: AppColors.surface,
       body: SafeArea(
         child: Center(
           child: ConstrainedBox(
@@ -107,6 +111,13 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                 key: _formKey,
                 child: Column(
                   children: [
+                    const BrandLogo(width: 180),
+                    const SizedBox(height: 24),
+                    const AppModuleIcon(icon: Icons.rocket_launch_rounded, color: AppColors.red, size: 64),
+                    const SizedBox(height: 10),
+                    const Text('Start your business trial', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900, color: AppColors.navy)),
+                    const SizedBox(height: 24),
+                    AppCard(accentColor: AppColors.primary, child: Column(children: [
                     AppTextField(
                       controller: _name,
                       label: 'Your name',
@@ -146,6 +157,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                       isLoading: _busy,
                       onPressed: _submit,
                     ),
+                    ])),
                   ],
                 ),
               ),
