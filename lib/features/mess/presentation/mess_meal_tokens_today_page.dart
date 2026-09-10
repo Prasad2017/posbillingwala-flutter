@@ -9,6 +9,7 @@ import 'package:pos_billingwala_v2/features/mess/domain/mess_dtos.dart';
 import 'package:pos_billingwala_v2/features/print/domain/print_providers.dart';
 import 'package:pos_billingwala_v2/features/print/domain/print_service.dart';
 import 'package:pos_billingwala_v2/core/widgtes/widgtes.dart';
+import 'package:pos_billingwala_v2/core/widgets/app_module_icon.dart';
 
 class MessMealTokensTodayPage extends ConsumerStatefulWidget {
   const MessMealTokensTodayPage({super.key});
@@ -143,15 +144,19 @@ class _MessMealTokensTodayPageState
                 Padding(
                   padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
                   child: AppCard(
-                    padding: const EdgeInsets.all(12),
+                    accentColor: AppColors.primary,
+                    padding: const EdgeInsets.all(14),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: data.sessionCounts
+                      children: [
+                        const AppModuleIcon(icon: Icons.confirmation_number_rounded, color: AppColors.primary, size: 48),
+                        const SizedBox(height: 8),
+                        ...data.sessionCounts
                           .map(
                             (c) => Padding(
                               padding: const EdgeInsets.only(bottom: 4),
                               child: Text(
-                                '${c.sessionName} — Gen ${c.generated} · '
+                                '${c.sessionName} • Gen ${c.generated} · '
                                 'Printed ${c.printed} · Pending ${c.pending} · '
                                 'Failed ${c.failed}',
                                 style: Theme.of(context).textTheme.bodySmall,
