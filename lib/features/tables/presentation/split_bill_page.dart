@@ -7,6 +7,7 @@ import 'package:pos_billingwala_v2/core/database/app_database.dart';
 import 'package:pos_billingwala_v2/core/database/database_provider.dart';
 import 'package:pos_billingwala_v2/features/tables/domain/tables_providers.dart';
 import 'package:pos_billingwala_v2/core/widgtes/widgtes.dart';
+import 'package:pos_billingwala_v2/core/widgets/app_module_icon.dart';
 
 /// Split an open dine-in bill into shares (equal / by item / by amount).
 class SplitBillPage extends ConsumerStatefulWidget {
@@ -84,10 +85,10 @@ class _SplitBillPageState extends ConsumerState<SplitBillPage> {
   @override
   Widget build(BuildContext context) {
     final cartAsync = ref.watch(allCartItemsProvider);
-    final currency = NumberFormat.currency(locale: 'en_IN', symbol: 'â‚¹');
+    final currency = NumberFormat.currency(locale: 'en_IN', symbol: '₹');
 
     return Scaffold(
-      appBar: AppBar(title: Text('Split Bill Â· T${widget.tableNumber}')),
+      appBar: AppBar(title: Text('Split Bill • T${widget.tableNumber}')),
       body: cartAsync.when(
         data: (all) {
           final items =
@@ -98,9 +99,11 @@ class _SplitBillPageState extends ConsumerState<SplitBillPage> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
                 child: AppCard(
+            accentColor: AppColors.primary,
             color: AppColors.primaryLight,
             padding: EdgeInsets.zero,
             child: ListTile(
+                    leading: const AppModuleIcon(icon: Icons.call_split_rounded, color: AppColors.primary, size: 48),
                     title: const Text(
                       'Bill total',
                       style: TextStyle(fontWeight: FontWeight.w700),
