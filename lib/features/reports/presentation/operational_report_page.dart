@@ -96,7 +96,9 @@ class _OperationalReportPageState extends ConsumerState<OperationalReportPage> {
           ),
         ],
       ),
-      body: Column(
+      body: Column(children: [
+        Container(margin: const EdgeInsets.fromLTRB(16, 10, 16, 4), padding: const EdgeInsets.all(14), decoration: BoxDecoration(gradient: const LinearGradient(colors: [AppColors.primary, AppColors.purple]), borderRadius: BorderRadius.circular(22)), child: Row(children: [AppModuleIcon(icon: widget.paymentBreakdown ? Icons.account_balance_wallet_rounded : Icons.analytics_rounded, color: Colors.white, size: 48), const SizedBox(width: 12), Expanded(child: Text('Track ${widget.title.toLowerCase()} performance', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w900)))])),
+        Expanded(child: Column(
         children: [
           Container(margin: const EdgeInsets.fromLTRB(16, 10, 16, 0), padding: const EdgeInsets.all(14), decoration: BoxDecoration(color: AppColors.primary.withValues(alpha: .08), borderRadius: BorderRadius.circular(20)), child: const Row(children: [AppModuleIcon(icon: Icons.insights_rounded, color: AppColors.primary, size: 48), SizedBox(width: 12), Expanded(child: Text('Live operational insights', style: TextStyle(fontWeight: FontWeight.w900, color: AppColors.navy)))])),
           Padding(
