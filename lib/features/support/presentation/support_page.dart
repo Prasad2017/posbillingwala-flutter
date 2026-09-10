@@ -73,6 +73,8 @@ class _SupportPageState extends ConsumerState<SupportPage> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
+          Container(margin: const EdgeInsets.fromLTRB(16, 10, 16, 0), padding: const EdgeInsets.all(16), decoration: BoxDecoration(color: AppColors.purple.withValues(alpha: .08), borderRadius: BorderRadius.circular(22)), child: const Row(children: [AppModuleIcon(icon: Icons.support_agent_rounded, color: AppColors.purple, size: 52), SizedBox(width: 12), Expanded(child: Text('We are here to help', style: TextStyle(fontWeight: FontWeight.w900, color: AppColors.navy)))])),
+          const SizedBox(height: 12),
               AppTextField(
                 controller: category,
                 label: 'Category',
