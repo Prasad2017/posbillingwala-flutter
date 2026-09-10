@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pos_billingwala_v2/core/constants/app_colors.dart';
 
 import 'package:pos_billingwala_v2/features/reports/domain/reports_providers.dart';
 
@@ -11,6 +12,7 @@ Future<void> pickReportMonth(BuildContext context, WidgetRef ref) async {
       : now;
   final picked = await showDatePicker(
     context: context,
+    builder: (context, child) => Theme(data: Theme.of(context).copyWith(colorScheme: Theme.of(context).colorScheme.copyWith(primary: AppColors.primary, secondary: AppColors.red)), child: child!),
     initialDate: DateTime(initial.year, initial.month, 1),
     firstDate: DateTime(now.year - 3, 1, 1),
     lastDate: DateTime(now.year, now.month, 1),
